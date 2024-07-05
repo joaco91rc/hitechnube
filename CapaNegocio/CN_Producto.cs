@@ -18,6 +18,12 @@ namespace CapaNegocio
             return objcd_Producto.Listar();
         }
 
+        public Producto ObtenerProductoPorId(int idProducto)
+        {
+            return objcd_Producto.ObtenerProductoPorId(idProducto);
+
+        }
+
         public int Registrar(Producto objProducto, out string mensaje)
         {
             mensaje = string.Empty;

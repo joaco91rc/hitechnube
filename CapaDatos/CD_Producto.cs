@@ -57,6 +57,52 @@ namespace CapaDatos
             return lista;
         }
 
+        public Producto ObtenerProductoPorId(int idProducto)
+        {
+            Producto producto = null;
+            using (SqlConnection oconexion = new SqlConnection(Conexion.cadena))
+            {
+                try
+                {
+                    StringBuilder query = new StringBuilder();
+                    query.AppendLine("select p.idProducto, p.codigo, p.nombre, p.descripcion, c.idCategoria, c.descripcion[DescripcionCategoria], p.stock, p.precioCompra, p.precioVenta, p.estado");
+                    query.AppendLine("from Producto p");
+                    query.AppendLine("inner join CATEGORIA c on c.idCategoria = p.idCategoria");
+                    query.AppendLine("where p.idProducto = @idProducto");
+
+                    SqlCommand cmd = new SqlCommand(query.ToString(), oconexion);
+                    cmd.CommandType = CommandType.Text;
+                    cmd.Parameters.AddWithValue("@idProducto", idProducto);
+
+                    oconexion.Open();
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        if (dr.Read())
+                        {
+                            producto = new Producto()
+                            {
+                                idProducto = Convert.ToInt32(dr["idProducto"]),
+                                codigo = dr["codigo"].ToString(),
+                                nombre = dr["nombre"].ToString(),
+                                descripcion = dr["descripcion"].ToString(),
+                                oCategoria = new Categoria() { idCategoria = Convert.ToInt32(dr["idCategoria"]), descripcion = dr["DescripcionCategoria"].ToString() },
+                                
+                                precioCompra = Convert.ToDecimal(dr["precioCompra"]),
+                                precioVenta = Convert.ToDecimal(dr["precioVenta"]),
+                                estado = Convert.ToBoolean(dr["estado"])
+                            };
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    producto = null;
+                }
+            }
+            return producto;
+        }
+
 
         public int Registrar(Producto objProducto, out string mensaje)
         {

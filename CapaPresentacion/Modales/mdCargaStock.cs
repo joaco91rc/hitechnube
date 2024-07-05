@@ -47,8 +47,16 @@ namespace CapaPresentacion.Modales
                 row.Visible = true;
         }
 
+        private void dgvData_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            // Marca la fila como modificada
+            dgvData.Rows[e.RowIndex].Tag = true;
+        }
+
+
         private void mdCargaStock_Load(object sender, EventArgs e)
         {
+            dgvData.CellValueChanged += new DataGridViewCellEventHandler(dgvData_CellValueChanged);
             txtBusqueda.Select();
             foreach (DataGridViewColumn columna in dgvData.Columns)
             {
@@ -91,33 +99,43 @@ namespace CapaPresentacion.Modales
 
         private void btnActualizarStock_Click(object sender, EventArgs e)
         {
+            string mensaje = string.Empty;
+            bool editarPrecios = false;
+
             // Iterar sobre las filas del DataGridView
             foreach (DataGridViewRow row in dgvData.Rows)
             {
-                // Obtener el estado de cambio de la fila
-                bool isRowModified = false;
-                foreach (DataGridViewCell cell in row.Cells)
-                {
-                    if (cell.IsInEditMode) // Verificar si la celda está en modo de edición
-                    {
-                        isRowModified = true;
-                        break;
-                    }
-                }
-
-                if (isRowModified)
+                // Verificar si la fila está marcada como modificada
+                if (row.Tag != null && (bool)row.Tag == true)
                 {
                     // Obtener el idProducto, idNegocio y el nuevo valor de stock
                     int idProducto = Convert.ToInt32(row.Cells["idProducto"].Value); // Ajusta el nombre de la columna según tu DataGridView
-                    int idNegocio = Convert.ToInt32(row.Cells["idNegocio"].Value);   // Ajusta el nombre de la columna según tu DataGridView
+                    int idNegocio = GlobalSettings.SucursalId; // Ajusta el nombre de la columna según tu DataGridView
                     int nuevoStock = Convert.ToInt32(row.Cells["stock"].Value);      // Ajusta el nombre de la columna según tu DataGridView
+                    decimal precioCompra = Convert.ToDecimal(row.Cells["precioCompra"].Value);
+                    decimal precioVenta = Convert.ToDecimal(row.Cells["precioVenta"].Value);
 
                     // Llamar al método para cargar o actualizar el stock del producto
                     new CN_ProductoNegocio().CargarOActualizarStockProducto(idProducto, idNegocio, nuevoStock);
+                    var producto = new CN_Producto().ObtenerProductoPorId(idProducto);
+                    producto.precioCompra = precioCompra;
+                    producto.precioVenta = precioVenta;
+                    editarPrecios = new CN_Producto().Editar(producto, out mensaje);
+
+                    // Resetear la marca de modificación de la fila
+                    row.Tag = null;
                 }
             }
 
-            MessageBox.Show("El stock ha sido actualizado correctamente.");
+            if (editarPrecios)
+            {
+                MessageBox.Show("Se ha actualizado el Stock y los precios.");
+            }
+            else
+            {
+                MessageBox.Show("El stock ha sido actualizado correctamente.");
+            }
+            this.Close();
         }
     }
 }

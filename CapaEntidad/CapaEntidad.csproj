@@ -53,6 +53,7 @@
     <Compile Include="GlobalSettings.cs" />
     <Compile Include="Negocio.cs" />
     <Compile Include="NetworkHelper.cs" />
+    <Compile Include="OrdenTraspaso.cs" />
     <Compile Include="Permiso.cs" />
     <Compile Include="Producto.cs" />
     <Compile Include="ProductoNegocio.cs" />
