@@ -183,6 +183,12 @@
     <Compile Include="frmNegocio.Designer.cs">
       <DependentUpon>frmNegocio.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmOrdenesDeTraspaso.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmOrdenesDeTraspaso.Designer.cs">
+      <DependentUpon>frmOrdenesDeTraspaso.cs</DependentUpon>
+    </Compile>
     <Compile Include="frmProducto.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -267,6 +273,18 @@
     <Compile Include="Modales\mdProveedor.Designer.cs">
       <DependentUpon>mdProveedor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Modales\mdTraspasoASucursal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modales\mdTraspasoASucursal.Designer.cs">
+      <DependentUpon>mdTraspasoASucursal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Modales\mdTraspasoStock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Modales\mdTraspasoStock.Designer.cs">
+      <DependentUpon>mdTraspasoStock.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilidades\OpcionCombo.cs" />
@@ -302,6 +320,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmNegocio.resx">
       <DependentUpon>frmNegocio.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmOrdenesDeTraspaso.resx">
+      <DependentUpon>frmOrdenesDeTraspaso.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="frmProducto.resx">
       <DependentUpon>frmProducto.cs</DependentUpon>
@@ -344,6 +365,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Modales\mdProveedor.resx">
       <DependentUpon>mdProveedor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modales\mdTraspasoASucursal.resx">
+      <DependentUpon>mdTraspasoASucursal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Modales\mdTraspasoStock.resx">
+      <DependentUpon>mdTraspasoStock.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

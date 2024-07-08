@@ -72,6 +72,7 @@ namespace CapaPresentacion
         {
             if(cboSucursal.SelectedIndex != -1) { 
             LoginUsuario();
+                cboSucursal.Enabled = false;
             } else
             { MessageBox.Show("La Sucursal es Obligatoria", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
 
@@ -122,7 +123,7 @@ namespace CapaPresentacion
 
                 GlobalSettings.SucursalId = Convert.ToInt32(((OpcionCombo)cboSucursal.SelectedItem).Valor);
                 GlobalSettings.NombreSucursal = ((OpcionCombo)cboSucursal.SelectedItem).Texto;
-                cboSucursal.Enabled = false;
+                
             }
         }
     }

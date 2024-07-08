@@ -274,5 +274,10 @@ namespace CapaPresentacion
             mdCargaStock mdCargaStock = new mdCargaStock();
             mdCargaStock.ShowDialog();
         }
+
+        private void subMenuTraspasoMercaderia_Click(object sender, EventArgs e)
+        {
+            AbrirFormulario(menuMantenedor, new frmOrdenesDeTraspaso());
+        }
     }
 }

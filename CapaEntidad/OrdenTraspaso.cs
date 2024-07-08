@@ -8,15 +8,15 @@ namespace CapaEntidad
 {
     public class OrdenTraspaso
     {
-        public int Id { get; set; }
+        public int IdOrdenTraspaso { get; set; }
         public int IdSucursalOrigen { get; set; }
         public int IdSucursalDestino { get; set; }
         public int IdProducto { get; set; }
         public int Cantidad { get; set; }
-        public bool Confirmada { get; set; }
+        public string Confirmada { get; set; }
         public DateTime FechaCreacion { get; set; }
 
-        public DateTime FechaConfirmacion { get; set; }
+        public DateTime? FechaConfirmacion { get; set; }
 
     }
 }

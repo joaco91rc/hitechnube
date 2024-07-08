@@ -53,6 +53,29 @@ namespace CapaPresentacion.Modales
             dgvData.Rows[e.RowIndex].Tag = true;
         }
 
+        private void CargarGrilla()
+        {
+            dgvData.Rows.Clear();
+            //Mostrar todos los Productos
+            List<Producto> listaProducto = new CN_Producto().Listar();
+
+            foreach (Producto item in listaProducto)
+            {
+                int stockProducto = new CN_ProductoNegocio().ObtenerStockProductoEnSucursal(item.idProducto, GlobalSettings.SucursalId);
+                if (stockProducto >= 0)
+                {
+                    dgvData.Rows.Add(new object[] { item.idProducto,
+                    item.codigo,
+                    item.nombre,
+                    item.oCategoria.descripcion,
+                    stockProducto,
+                    item.precioCompra,
+                    item.precioVenta,
+
+                    });
+                }
+            }
+        }
 
         private void mdCargaStock_Load(object sender, EventArgs e)
         {
@@ -74,22 +97,7 @@ namespace CapaPresentacion.Modales
             cboBusqueda.ValueMember = "Valor";
             cboBusqueda.SelectedIndex = 1;
 
-            //Mostrar todos los Productos
-            List<Producto> listaProducto = new CN_Producto().Listar();
-
-            foreach (Producto item in listaProducto)
-            {
-                int stockProducto = new CN_ProductoNegocio().ObtenerStockProductoEnSucursal(item.idProducto, GlobalSettings.SucursalId);
-                dgvData.Rows.Add(new object[] { item.idProducto,
-                    item.codigo,
-                    item.nombre,
-                    item.oCategoria.descripcion,
-                    stockProducto,
-                    item.precioCompra,
-                    item.precioVenta,
-
-                    });
-            }
+            CargarGrilla();
         }
 
         private void iconPictureBox1_Click(object sender, EventArgs e)
@@ -137,5 +145,42 @@ namespace CapaPresentacion.Modales
             }
             this.Close();
         }
+
+        private void btnTraspasarStock_Click(object sender, EventArgs e)
+        {
+            mdTraspasoStock mdtstock = new mdTraspasoStock() ;
+            mdtstock.FormClosed += new FormClosedEventHandler(mdtstock_FormClosed);
+            mdtstock.Show();
+           
+        }
+        private void mdtstock_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            CargarGrilla();
+            this.Activate();
+        }
+
+        private void txtBusqueda_KeyDown(object sender, KeyEventArgs e)
+        {
+            // Verificar si la tecla presionada es Enter
+            if (e.KeyCode == Keys.Enter)
+            {
+                string columnaFiltro = ((OpcionCombo)cboBusqueda.SelectedItem).Valor.ToString();
+
+                if (dgvData.Rows.Count > 0)
+                {
+                    foreach (DataGridViewRow row in dgvData.Rows)
+                    {
+                        if (row.Cells[columnaFiltro].Value.ToString().Trim().ToUpper().Contains(txtBusqueda.Text.Trim().ToUpper()))
+                            row.Visible = true;
+                        else
+                            row.Visible = false;
+                    }
+                }
+
+                // Evitar que el sonido de beep se produzca cuando se presiona Enter
+                e.SuppressKeyPress = true;
+            }
+        }
+
     }
 }

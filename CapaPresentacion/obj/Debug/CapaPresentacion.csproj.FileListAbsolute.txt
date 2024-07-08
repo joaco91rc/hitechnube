@@ -322,3 +322,6 @@ C:\Users\joaco\Desktop\AcuarioSoftware1366x768-master\AcuarioSoftware1366x768-ma
 C:\Users\joaco\Desktop\AcuarioSoftware1366x768-master\AcuarioSoftware1366x768-master\CapaPresentacion\obj\Debug\CapaPresentacion.csproj.CoreCompileInputs.cache
 C:\Users\joaco\Desktop\AcuarioSoftware1366x768-master\AcuarioSoftware1366x768-master\CapaPresentacion\obj\Debug\CapaPresentacion.csproj.CopyComplete
 C:\Users\joaco\Desktop\AcuarioSoftware1366x768-master\AcuarioSoftware1366x768-master\CapaPresentacion\obj\Debug\CapaPresentacion.Modales.mdCargaStock.resources
+C:\Users\joaco\Desktop\AcuarioSoftware1366x768-master\AcuarioSoftware1366x768-master\CapaPresentacion\obj\Debug\CapaPresentacion.frmOrdenesDeTraspaso.resources
+C:\Users\joaco\Desktop\AcuarioSoftware1366x768-master\AcuarioSoftware1366x768-master\CapaPresentacion\obj\Debug\CapaPresentacion.Modales.mdTraspasoASucursal.resources
+C:\Users\joaco\Desktop\AcuarioSoftware1366x768-master\AcuarioSoftware1366x768-master\CapaPresentacion\obj\Debug\CapaPresentacion.Modales.mdTraspasoStock.resources

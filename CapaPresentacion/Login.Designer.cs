@@ -114,7 +114,7 @@ namespace CapaPresentacion
             this.iconButton1.Location = new System.Drawing.Point(263, 255);
             this.iconButton1.Name = "iconButton1";
             this.iconButton1.Size = new System.Drawing.Size(505, 40);
-            this.iconButton1.TabIndex = 3;
+            this.iconButton1.TabIndex = 4;
             this.iconButton1.Text = "ACCEDER";
             this.iconButton1.UseVisualStyleBackColor = false;
             this.iconButton1.Click += new System.EventHandler(this.iconButton1_Click);
@@ -178,7 +178,7 @@ namespace CapaPresentacion
             this.cboSucursal.Location = new System.Drawing.Point(363, 200);
             this.cboSucursal.Name = "cboSucursal";
             this.cboSucursal.Size = new System.Drawing.Size(405, 21);
-            this.cboSucursal.TabIndex = 11;
+            this.cboSucursal.TabIndex = 3;
             this.cboSucursal.SelectedIndexChanged += new System.EventHandler(this.cboSucursal_SelectedIndexChanged);
             // 
             // Login
