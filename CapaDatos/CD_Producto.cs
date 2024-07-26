@@ -21,7 +21,7 @@ namespace CapaDatos
                 {
 
                     StringBuilder query = new StringBuilder();
-                    query.AppendLine("select p.idProducto,p.codigo,p.nombre,p.descripcion,c.idCategoria,c.descripcion[DescripcionCategoria],p.stock,p.precioCompra,p.precioVenta,p.estado from Producto p");
+                    query.AppendLine("select p.idProducto,p.codigo,p.nombre,p.descripcion,c.idCategoria,c.descripcion[DescripcionCategoria],p.stock,p.precioCompra,p.precioVenta,p.estado,p.costoPesos from Producto p");
                     query.AppendLine("inner join CATEGORIA c on c.idCategoria = p.idCategoria");
                     SqlCommand cmd = new SqlCommand(query.ToString(), oconexion);
                     cmd.CommandType = CommandType.Text;
@@ -38,7 +38,7 @@ namespace CapaDatos
                                 nombre = dr["nombre"].ToString(),
                                 descripcion = dr["descripcion"].ToString(),
                                 oCategoria = new Categoria() { idCategoria = Convert.ToInt32(dr["idCategoria"]), descripcion = dr["DescripcionCategoria"].ToString() },
-                                
+                                costoPesos = Convert.ToDecimal(dr["costoPesos"]),
                                 precioCompra = Convert.ToDecimal(dr["precioCompra"]),
                                 precioVenta = Convert.ToDecimal(dr["precioVenta"]),
                                 estado = Convert.ToBoolean(dr["estado"])
@@ -65,7 +65,7 @@ namespace CapaDatos
                 try
                 {
                     StringBuilder query = new StringBuilder();
-                    query.AppendLine("select p.idProducto, p.codigo, p.nombre, p.descripcion, c.idCategoria, c.descripcion[DescripcionCategoria], p.stock, p.precioCompra, p.precioVenta, p.estado");
+                    query.AppendLine("select p.idProducto, p.costoPesos, p.codigo, p.nombre, p.descripcion, c.idCategoria, c.descripcion[DescripcionCategoria], p.stock, p.precioCompra, p.precioVenta, p.estado");
                     query.AppendLine("from Producto p");
                     query.AppendLine("inner join CATEGORIA c on c.idCategoria = p.idCategoria");
                     query.AppendLine("where p.idProducto = @idProducto");
@@ -87,7 +87,7 @@ namespace CapaDatos
                                 nombre = dr["nombre"].ToString(),
                                 descripcion = dr["descripcion"].ToString(),
                                 oCategoria = new Categoria() { idCategoria = Convert.ToInt32(dr["idCategoria"]), descripcion = dr["DescripcionCategoria"].ToString() },
-                                
+                                costoPesos= Convert.ToDecimal(dr["costoPesos"]),
                                 precioCompra = Convert.ToDecimal(dr["precioCompra"]),
                                 precioVenta = Convert.ToDecimal(dr["precioVenta"]),
                                 estado = Convert.ToBoolean(dr["estado"])
@@ -123,7 +123,7 @@ namespace CapaDatos
                     cmd.Parameters.AddWithValue("idCategoria", objProducto.oCategoria.idCategoria);
                     
                     cmd.Parameters.AddWithValue("estado", objProducto.estado);
-                    
+                    cmd.Parameters.AddWithValue("costoPesos", objProducto.costoPesos);
                     cmd.Parameters.AddWithValue("precioCompra", objProducto.precioCompra);
                     cmd.Parameters.AddWithValue("precioVenta", objProducto.precioVenta);
 
@@ -258,7 +258,7 @@ namespace CapaDatos
                     cmd.Parameters.AddWithValue("descripcion", objProducto.descripcion);
                     cmd.Parameters.AddWithValue("idCategoria", objProducto.oCategoria.idCategoria);
                     cmd.Parameters.AddWithValue("estado", objProducto.estado);
-                    
+                    cmd.Parameters.AddWithValue("costoPesos", objProducto.costoPesos);
                     cmd.Parameters.AddWithValue("precioCompra", objProducto.precioCompra);
                     cmd.Parameters.AddWithValue("precioVenta", objProducto.precioVenta);
 

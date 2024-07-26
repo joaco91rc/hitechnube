@@ -73,6 +73,7 @@ namespace CapaPresentacion.Modales
             foreach (Producto item in listaProducto)
             {
                 int stockProducto = new CN_ProductoNegocio().ObtenerStockProductoEnSucursal(item.idProducto, GlobalSettings.SucursalId);
+                if(stockProducto >= 0) { 
                 dgvData.Rows.Add(new object[] { item.idProducto,
                     item.codigo,
                     item.nombre,                                   
@@ -82,12 +83,14 @@ namespace CapaPresentacion.Modales
                     item.precioVenta,
 
                     });
+                }
             }
 
         }
 
         private void dgvData_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+
             int iRow = e.RowIndex;
             int iColumn = e.ColumnIndex;
             if (iRow >= 0 && iColumn > 0)
@@ -102,6 +105,8 @@ namespace CapaPresentacion.Modales
                     precioCompra = Convert.ToDecimal(dgvData.Rows[iRow].Cells["precioCompra"].Value.ToString()),
                     precioVenta = Convert.ToDecimal(dgvData.Rows[iRow].Cells["precioVenta"].Value.ToString())
                 };
+                
+                
                 this.DialogResult = DialogResult.OK;
                 this.Close();
             }
@@ -135,6 +140,11 @@ namespace CapaPresentacion.Modales
 
                 }
             }
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

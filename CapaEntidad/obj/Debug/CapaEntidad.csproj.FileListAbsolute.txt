@@ -28,3 +28,9 @@ C:\Users\joaco\Desktop\AcuarioSoftware1366x768-master\AcuarioSoftware1366x768-ma
 C:\Users\joaco\Desktop\AcuarioSoftware1366x768-master\AcuarioSoftware1366x768-master\CapaEntidad\obj\Debug\CapaEntidad.dll
 C:\Users\joaco\Desktop\AcuarioSoftware1366x768-master\AcuarioSoftware1366x768-master\CapaEntidad\obj\Debug\CapaEntidad.pdb
 C:\Users\joaco\Desktop\AcuarioSoftware1366x768-master\AcuarioSoftware1366x768-master\CapaEntidad\obj\Debug\CapaEntidad.csproj.AssemblyReference.cache
+C:\Users\jaalvarez\Source\Repos\hitechnube\CapaEntidad\bin\Debug\CapaEntidad.dll
+C:\Users\jaalvarez\Source\Repos\hitechnube\CapaEntidad\bin\Debug\CapaEntidad.pdb
+C:\Users\jaalvarez\Source\Repos\hitechnube\CapaEntidad\obj\Debug\CapaEntidad.csproj.AssemblyReference.cache
+C:\Users\jaalvarez\Source\Repos\hitechnube\CapaEntidad\obj\Debug\CapaEntidad.csproj.CoreCompileInputs.cache
+C:\Users\jaalvarez\Source\Repos\hitechnube\CapaEntidad\obj\Debug\CapaEntidad.dll
+C:\Users\jaalvarez\Source\Repos\hitechnube\CapaEntidad\obj\Debug\CapaEntidad.pdb

@@ -1,11 +1,14 @@
 ﻿using CapaEntidad;
 using CapaNegocio;
 using CapaPresentacion.Utilidades;
+using ClosedXML.Excel;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,19 +43,33 @@ namespace CapaPresentacion
             cboBusqueda.SelectedIndex = 1;
 
             List<Producto> listaProducto = new CN_Producto().Listar();
-
+            
             foreach (Producto item in listaProducto)
-            {
-                dgvData.Rows.Add(new object[] { "",item.idProducto,
+            {   
+
+                int stockH1 = new CN_ProductoNegocio().ObtenerStockProductoEnSucursal(item.idProducto, 1);
+                int stockH2 = new CN_ProductoNegocio().ObtenerStockProductoEnSucursal(item.idProducto, 2);
+                int stockAS = new CN_ProductoNegocio().ObtenerStockProductoEnSucursal(item.idProducto, 3);
+                int stockAC = new CN_ProductoNegocio().ObtenerStockProductoEnSucursal(item.idProducto, 4);
+                int stockTotal = stockH1 + stockH2 + stockAS + stockAC;
+                decimal precioVentaCotizado = item.precioVenta * cotizacionActiva;
+                decimal precioConIncremento = precioVentaCotizado + (precioVentaCotizado * 0.30m);
+
+                dgvData.Rows.Add(new object[] { item.idProducto,
                     item.codigo,
                     item.nombre,
-                    item.descripcion,
+                    
                     item.oCategoria.idCategoria,
                     item.oCategoria.descripcion,
-                    
+                    stockTotal,
+                    stockH1,
+                    stockH2,
+                    stockAS,
+                    stockAC,                                       
                     item.precioCompra,
                     item.precioVenta,
-                    (item.precioVenta*cotizacionActiva).ToString("0.00"),
+                    precioVentaCotizado.ToString("0.00"),
+                    precioConIncremento.ToString("0.00"),
                     item.estado==true?1:0,
                     item.estado==true? "Activo": "No Activo"
                     });
@@ -114,6 +131,79 @@ namespace CapaPresentacion
             txtBusqueda.Clear();
             foreach (DataGridViewRow row in dgvData.Rows)
                 row.Visible = true;
+        }
+
+        private void ExportarExcel()
+        {
+            if (dgvData.Rows.Count < 1)
+            {
+                MessageBox.Show("No hay registros para exportar", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return;
+            }
+
+            DataTable dt = new DataTable();
+
+            // Crear las columnas en el DataTable
+            foreach (DataGridViewColumn columna in dgvData.Columns)
+            {
+                if (columna.Visible) // Solo agregar las columnas visibles
+                {
+                    dt.Columns.Add(columna.HeaderText, typeof(string));
+                }
+            }
+
+            // Agregar las filas al DataTable
+            foreach (DataGridViewRow row in dgvData.Rows)
+            {
+                if (row.Visible)
+                {
+                    DataRow fila = dt.NewRow();
+
+                    // Iterar solo sobre las columnas visibles
+                    foreach (DataGridViewColumn columna in dgvData.Columns)
+                    {
+                        if (columna.Visible)
+                        {
+                            DataGridViewCell cell = row.Cells[columna.Index];
+                            fila[columna.HeaderText] = cell.Value != null ? cell.Value.ToString() : "";
+                        }
+                    }
+
+                    dt.Rows.Add(fila);
+                }
+            }
+
+            SaveFileDialog saveFile = new SaveFileDialog();
+            saveFile.FileName = string.Format("Exportacion_Productos_{0}.xlsx", DateTime.Now.ToString("yyyyMMddHHmmss"));
+            saveFile.Filter = "Archivos Excel (*.xlsx)|*.xlsx";
+
+            if (saveFile.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    using (XLWorkbook wb = new XLWorkbook())
+                    {
+                        var hoja = wb.Worksheets.Add(dt, "Productos");
+
+                        // Ajustar el ancho de las columnas
+                        hoja.ColumnsUsed().AdjustToContents();
+
+                        // Guardar el archivo Excel
+                        wb.SaveAs(saveFile.FileName);
+                        MessageBox.Show("Archivo Excel exportado correctamente.", "Exportación Exitosa", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error al exportar a Excel: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+
+        private void btnExportarExcel_Click(object sender, EventArgs e)
+        {
+            ExportarExcel();
         }
     }
 }

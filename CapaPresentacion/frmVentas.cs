@@ -139,7 +139,7 @@ namespace CapaPresentacion
                     txtCodigoProducto.Text = modal._Producto.codigo;
                     txtProducto.Text = modal._Producto.nombre;
                     txtPrecio.Text = modal._Producto.precioVenta.ToString("0.00");
-                    //txtStock.Text = modal._Producto.stock.ToString();
+                    
                     txtCantidad.Select();
                 }
                 else
@@ -254,7 +254,7 @@ namespace CapaPresentacion
 
         private void limpiarProducto()
         {
-            txtIdProducto.Text = "0";
+           
             txtProducto.Text = "";
             txtCodigoProducto.BackColor = Color.White;
             txtCodigoProducto.Text = "";
@@ -591,7 +591,8 @@ namespace CapaPresentacion
     bool respuesta = new CN_Venta().Registrar(oVenta, detalle_venta, out mensaje);
     if (respuesta)
     {
-
+                    new CN_ProductoNegocio().CargarOActualizarStockProducto(Convert.ToInt32(txtIdProducto.Text), GlobalSettings.SucursalId, -Convert.ToInt32(txtCantidad.Text));
+                    txtIdProducto.Text = string.Empty;
                     List<string> formasPago = new List<string>();
                     formasPago.Add(cboFormaPago.Text);
                     if (cboFormaPago2.SelectedIndex >= 0) formasPago.Add(cboFormaPago2.Text);
@@ -924,6 +925,19 @@ namespace CapaPresentacion
                 {
                     txtCambioCliente.Text = "0.00";
                 }
+            }
+        }
+
+        private void txtIdProducto_TextChanged(object sender, EventArgs e)
+        {
+            
+            if (txtIdProducto.Text != string.Empty)
+            {
+                int stockProducto = new CN_ProductoNegocio().ObtenerStockProductoEnSucursal(Convert.ToInt32(txtIdProducto.Text), GlobalSettings.SucursalId);
+                txtStock.Text = stockProducto.ToString();
+            }
+            else {
+                txtStock.Text = string.Empty;
             }
         }
     }

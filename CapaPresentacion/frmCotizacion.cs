@@ -42,7 +42,7 @@ namespace CapaPresentacion
 
                     if (idCotizacionGenerado != 0)
                     {
-                        dgvData.Rows.Add(new object[] { "",idCotizacionGenerado ,dtpFecha.Value.ToString(), (txtImporte.Value).ToString()
+                        dgvData.Rows.Add(new object[] { idCotizacionGenerado ,dtpFecha.Value.ToString(), (txtImporte.Value).ToString()
             });
                         Limpiar();
                     }
@@ -76,7 +76,7 @@ namespace CapaPresentacion
 
             foreach (Cotizacion item in listaCotizaciones)
             {
-                dgvData.Rows.Add(new object[] { "",item.idCotizacion,
+                dgvData.Rows.Add(new object[] {item.idCotizacion,
                     item.fecha.ToString(),
                     item.importe
                     

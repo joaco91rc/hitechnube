@@ -14,7 +14,7 @@ namespace CapaEntidad
         public string descripcion { get; set; }
         public Categoria oCategoria { get; set; }
 
-        //public int stock { get; set; }
+        public decimal costoPesos { get; set; }
 
 
         

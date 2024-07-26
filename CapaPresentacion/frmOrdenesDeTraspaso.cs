@@ -19,12 +19,13 @@ namespace CapaPresentacion
             InitializeComponent();
         }
 
-        private void frmOrdenesDeTraspaso_Load(object sender, EventArgs e)
-        {
+        private void CargarGrilla() {
+            dgvData.Rows.Clear();
             List<OrdenTraspaso> listaOrdenes = new CN_OrdenTraspaso().ListarOrdenesTraspaso().Where(ot => ot.Confirmada == "0" && ot.IdSucursalDestino == GlobalSettings.SucursalId).ToList();
 
             foreach (OrdenTraspaso item in listaOrdenes)
             {
+
                 string nombreProducto = new CN_Producto().ObtenerProductoPorId(item.IdProducto).nombre;
 
                 dgvData.Rows.Add(new object[] {item.FechaCreacion,
@@ -38,6 +39,11 @@ namespace CapaPresentacion
                     item.FechaConfirmacion,
                     ""});
             }
+
+        }
+        private void frmOrdenesDeTraspaso_Load(object sender, EventArgs e)
+        {
+            CargarGrilla();
         }
 
         private void dgvData_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -61,7 +67,7 @@ namespace CapaPresentacion
                     new CN_ProductoNegocio().CargarOActualizarStockProducto(idProducto, GlobalSettings.SucursalId, cantidad);
 
                     MessageBox.Show("Producto Ingresado");
-
+                    CargarGrilla();
                 }
                 else
                 {
@@ -69,6 +75,26 @@ namespace CapaPresentacion
                     MessageBox.Show("No se Pudo Ingresar el Producto");
                 }
             
+            }
+        }
+
+        private void dgvData_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            int traspasarColumnIndex = dgvData.Columns["btnConfirmarRecepcion"].Index;
+
+            if (e.ColumnIndex == traspasarColumnIndex)
+            {
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+
+                var w = Properties.Resources.check20.Width;
+                var h = Properties.Resources.check20.Height;
+                var x = e.CellBounds.Left + (e.CellBounds.Width - w) / 2;
+                var y = e.CellBounds.Top + (e.CellBounds.Height - h) / 2;
+                e.Graphics.DrawImage(Properties.Resources.check20, new Rectangle(x, y, w, h));
+                e.Handled = true;
             }
         }
     }

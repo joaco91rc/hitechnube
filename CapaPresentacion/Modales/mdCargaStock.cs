@@ -15,6 +15,7 @@ namespace CapaPresentacion.Modales
 {
     public partial class mdCargaStock : Form
     {
+        public decimal cotizacionActiva { get; set; } = new CN_Cotizacion().CotizacionActiva().importe;
         public mdCargaStock()
         {
             InitializeComponent();
@@ -62,18 +63,18 @@ namespace CapaPresentacion.Modales
             foreach (Producto item in listaProducto)
             {
                 int stockProducto = new CN_ProductoNegocio().ObtenerStockProductoEnSucursal(item.idProducto, GlobalSettings.SucursalId);
-                if (stockProducto >= 0)
-                {
+                
                     dgvData.Rows.Add(new object[] { item.idProducto,
                     item.codigo,
                     item.nombre,
                     item.oCategoria.descripcion,
                     stockProducto,
+                    item.costoPesos,
                     item.precioCompra,
                     item.precioVenta,
 
                     });
-                }
+                
             }
         }
 
@@ -122,12 +123,18 @@ namespace CapaPresentacion.Modales
                     int nuevoStock = Convert.ToInt32(row.Cells["stock"].Value);      // Ajusta el nombre de la columna según tu DataGridView
                     decimal precioCompra = Convert.ToDecimal(row.Cells["precioCompra"].Value);
                     decimal precioVenta = Convert.ToDecimal(row.Cells["precioVenta"].Value);
-
+                    decimal costoPesos = Convert.ToDecimal(row.Cells["costoPesos"].Value);
                     // Llamar al método para cargar o actualizar el stock del producto
                     new CN_ProductoNegocio().CargarOActualizarStockProducto(idProducto, idNegocio, nuevoStock);
                     var producto = new CN_Producto().ObtenerProductoPorId(idProducto);
                     producto.precioCompra = precioCompra;
                     producto.precioVenta = precioVenta;
+                    if (costoPesos != 0)
+                    {
+                        producto.costoPesos = costoPesos;
+                        producto.precioCompra = costoPesos / cotizacionActiva; 
+                    }
+                    
                     editarPrecios = new CN_Producto().Editar(producto, out mensaje);
 
                     // Resetear la marca de modificación de la fila

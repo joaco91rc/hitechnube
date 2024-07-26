@@ -112,5 +112,26 @@ namespace CapaPresentacion.Modales
         {
             this.Close();
         }
+
+        private void dgvData_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+
+            if (e.RowIndex < 0)
+                return;
+
+            int traspasarColumnIndex = dgvData.Columns["btnTraspasar"].Index;
+
+            if (e.ColumnIndex == traspasarColumnIndex)
+            {
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+
+                var w = Properties.Resources.traspasar.Width;
+                var h = Properties.Resources.traspasar.Height;
+                var x = e.CellBounds.Left + (e.CellBounds.Width - w) / 2;
+                var y = e.CellBounds.Top + (e.CellBounds.Height - h) / 2;
+                e.Graphics.DrawImage(Properties.Resources.traspasar, new Rectangle(x, y, w, h));
+                e.Handled = true;
+            }
+        }
     }
 }

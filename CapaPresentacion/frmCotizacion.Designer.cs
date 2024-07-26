@@ -38,8 +38,6 @@ namespace CapaPresentacion
             this.label12 = new System.Windows.Forms.Label();
             this.txtIdCotizacion = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.btnEliminar = new FontAwesome.Sharp.IconButton();
-            this.btnLimpiarDatos = new FontAwesome.Sharp.IconButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnGuardar = new FontAwesome.Sharp.IconButton();
             this.label13 = new System.Windows.Forms.Label();
@@ -51,12 +49,9 @@ namespace CapaPresentacion
             this.dtpFecha = new System.Windows.Forms.DateTimePicker();
             this.txtImporte = new System.Windows.Forms.NumericUpDown();
             this.dtpBuscarFecha = new System.Windows.Forms.DateTimePicker();
-            this.btnSeleccionar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.idCotizacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fecha = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.importe = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.estadoValor = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtImporte)).BeginInit();
@@ -78,12 +73,9 @@ namespace CapaPresentacion
             this.dgvData.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.dgvData.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvData.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.btnSeleccionar,
             this.idCotizacion,
             this.fecha,
-            this.importe,
-            this.estadoValor,
-            this.estado});
+            this.importe});
             this.dgvData.Cursor = System.Windows.Forms.Cursors.Hand;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.HighlightText;
@@ -167,50 +159,6 @@ namespace CapaPresentacion
             this.label11.Size = new System.Drawing.Size(359, 32);
             this.label11.TabIndex = 77;
             this.label11.Text = "HISTORICO DE COTIZACIONES";
-            // 
-            // btnEliminar
-            // 
-            this.btnEliminar.BackColor = System.Drawing.Color.Firebrick;
-            this.btnEliminar.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnEliminar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(216)))), ((int)(((byte)(212)))));
-            this.btnEliminar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.btnEliminar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(216)))), ((int)(((byte)(212)))));
-            this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnEliminar.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEliminar.ForeColor = System.Drawing.Color.White;
-            this.btnEliminar.IconChar = FontAwesome.Sharp.IconChar.TrashAlt;
-            this.btnEliminar.IconColor = System.Drawing.Color.White;
-            this.btnEliminar.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnEliminar.IconSize = 28;
-            this.btnEliminar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnEliminar.Location = new System.Drawing.Point(269, 305);
-            this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(141, 31);
-            this.btnEliminar.TabIndex = 76;
-            this.btnEliminar.Text = "Eliminar";
-            this.btnEliminar.UseVisualStyleBackColor = false;
-            // 
-            // btnLimpiarDatos
-            // 
-            this.btnLimpiarDatos.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(8)))), ((int)(((byte)(83)))), ((int)(((byte)(150)))));
-            this.btnLimpiarDatos.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.btnLimpiarDatos.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(216)))), ((int)(((byte)(212)))));
-            this.btnLimpiarDatos.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
-            this.btnLimpiarDatos.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(216)))), ((int)(((byte)(212)))));
-            this.btnLimpiarDatos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLimpiarDatos.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLimpiarDatos.ForeColor = System.Drawing.Color.White;
-            this.btnLimpiarDatos.IconChar = FontAwesome.Sharp.IconChar.Broom;
-            this.btnLimpiarDatos.IconColor = System.Drawing.Color.White;
-            this.btnLimpiarDatos.IconFont = FontAwesome.Sharp.IconFont.Auto;
-            this.btnLimpiarDatos.IconSize = 28;
-            this.btnLimpiarDatos.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btnLimpiarDatos.Location = new System.Drawing.Point(149, 305);
-            this.btnLimpiarDatos.Name = "btnLimpiarDatos";
-            this.btnLimpiarDatos.Size = new System.Drawing.Size(114, 31);
-            this.btnLimpiarDatos.TabIndex = 75;
-            this.btnLimpiarDatos.Text = "Limpiar";
-            this.btnLimpiarDatos.UseVisualStyleBackColor = false;
             // 
             // pictureBox1
             // 
@@ -350,16 +298,9 @@ namespace CapaPresentacion
             this.dtpBuscarFecha.Size = new System.Drawing.Size(100, 20);
             this.dtpBuscarFecha.TabIndex = 92;
             // 
-            // btnSeleccionar
-            // 
-            this.btnSeleccionar.HeaderText = "";
-            this.btnSeleccionar.Name = "btnSeleccionar";
-            this.btnSeleccionar.ReadOnly = true;
-            this.btnSeleccionar.Width = 30;
-            // 
             // idCotizacion
             // 
-            this.idCotizacion.HeaderText = "ID CATEGORIA";
+            this.idCotizacion.HeaderText = "ID COTIZACION";
             this.idCotizacion.Name = "idCotizacion";
             this.idCotizacion.ReadOnly = true;
             this.idCotizacion.Visible = false;
@@ -378,20 +319,6 @@ namespace CapaPresentacion
             this.importe.Name = "importe";
             this.importe.ReadOnly = true;
             // 
-            // estadoValor
-            // 
-            this.estadoValor.HeaderText = "ESTADO VALOR";
-            this.estadoValor.Name = "estadoValor";
-            this.estadoValor.ReadOnly = true;
-            this.estadoValor.Visible = false;
-            // 
-            // estado
-            // 
-            this.estado.HeaderText = "ESTADO";
-            this.estado.Name = "estado";
-            this.estado.ReadOnly = true;
-            this.estado.Visible = false;
-            // 
             // frmCotizacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -407,8 +334,6 @@ namespace CapaPresentacion
             this.Controls.Add(this.label12);
             this.Controls.Add(this.txtIdCotizacion);
             this.Controls.Add(this.label11);
-            this.Controls.Add(this.btnEliminar);
-            this.Controls.Add(this.btnLimpiarDatos);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.btnGuardar);
             this.Controls.Add(this.label13);
@@ -434,8 +359,6 @@ namespace CapaPresentacion
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox txtIdCotizacion;
         private System.Windows.Forms.Label label11;
-        private FontAwesome.Sharp.IconButton btnEliminar;
-        private FontAwesome.Sharp.IconButton btnLimpiarDatos;
         private System.Windows.Forms.PictureBox pictureBox1;
         private FontAwesome.Sharp.IconButton btnGuardar;
         private System.Windows.Forms.Label label13;
@@ -447,11 +370,8 @@ namespace CapaPresentacion
         private System.Windows.Forms.DateTimePicker dtpFecha;
         private System.Windows.Forms.NumericUpDown txtImporte;
         private System.Windows.Forms.DateTimePicker dtpBuscarFecha;
-        private System.Windows.Forms.DataGridViewButtonColumn btnSeleccionar;
         private System.Windows.Forms.DataGridViewTextBoxColumn idCotizacion;
         private System.Windows.Forms.DataGridViewTextBoxColumn fecha;
         private System.Windows.Forms.DataGridViewTextBoxColumn importe;
-        private System.Windows.Forms.DataGridViewTextBoxColumn estadoValor;
-        private System.Windows.Forms.DataGridViewTextBoxColumn estado;
     }
 }

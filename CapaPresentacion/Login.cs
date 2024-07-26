@@ -72,7 +72,7 @@ namespace CapaPresentacion
         {
             if(cboSucursal.SelectedIndex != -1) { 
             LoginUsuario();
-                cboSucursal.Enabled = false;
+                
             } else
             { MessageBox.Show("La Sucursal es Obligatoria", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
 
