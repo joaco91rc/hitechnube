@@ -1,8 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\CapaPresentacion"
+    "\\CapaPresentacion",
+    "\\CapaPresentacion\\Modales"
   ],
-  "SelectedNode": "\\CapaPresentacion\\App.config",
+  "SelectedNode": "\\CapaPresentacion\\Modales\\mdCargaStock.cs",
   "PreviewInSolutionExplorer": false
 }
