@@ -42,6 +42,8 @@ namespace CapaPresentacion.Modales
             this.cboSucursal = new System.Windows.Forms.ComboBox();
             this.txtCantidad = new System.Windows.Forms.NumericUpDown();
             this.txtFechaTraspaso = new System.Windows.Forms.DateTimePicker();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lblCantStock = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.iconPictureBox1)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtCantidad)).BeginInit();
@@ -88,7 +90,7 @@ namespace CapaPresentacion.Modales
             this.label4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.label4.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(212)))), ((int)(((byte)(216)))));
-            this.label4.Location = new System.Drawing.Point(44, 178);
+            this.label4.Location = new System.Drawing.Point(45, 211);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(115, 17);
             this.label4.TabIndex = 93;
@@ -139,7 +141,7 @@ namespace CapaPresentacion.Modales
             this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.label1.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(212)))), ((int)(((byte)(216)))));
-            this.label1.Location = new System.Drawing.Point(44, 216);
+            this.label1.Location = new System.Drawing.Point(45, 249);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(67, 17);
             this.label1.TabIndex = 103;
@@ -174,20 +176,21 @@ namespace CapaPresentacion.Modales
             this.txtIdProducto.Size = new System.Drawing.Size(76, 17);
             this.txtIdProducto.TabIndex = 106;
             this.txtIdProducto.Text = "IdProducto";
+            this.txtIdProducto.Visible = false;
             // 
             // cboSucursal
             // 
             this.cboSucursal.BackColor = System.Drawing.Color.White;
             this.cboSucursal.ForeColor = System.Drawing.Color.Black;
             this.cboSucursal.FormattingEnabled = true;
-            this.cboSucursal.Location = new System.Drawing.Point(229, 178);
+            this.cboSucursal.Location = new System.Drawing.Point(230, 211);
             this.cboSucursal.Name = "cboSucursal";
             this.cboSucursal.Size = new System.Drawing.Size(178, 21);
             this.cboSucursal.TabIndex = 107;
             // 
             // txtCantidad
             // 
-            this.txtCantidad.Location = new System.Drawing.Point(229, 213);
+            this.txtCantidad.Location = new System.Drawing.Point(230, 246);
             this.txtCantidad.Name = "txtCantidad";
             this.txtCantidad.Size = new System.Drawing.Size(178, 20);
             this.txtCantidad.TabIndex = 108;
@@ -206,12 +209,38 @@ namespace CapaPresentacion.Modales
             this.txtFechaTraspaso.Size = new System.Drawing.Size(178, 20);
             this.txtFechaTraspaso.TabIndex = 109;
             // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.label5.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(212)))), ((int)(((byte)(216)))));
+            this.label5.Location = new System.Drawing.Point(45, 180);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(46, 17);
+            this.label5.TabIndex = 110;
+            this.label5.Text = "Stock:";
+            // 
+            // lblCantStock
+            // 
+            this.lblCantStock.AutoSize = true;
+            this.lblCantStock.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.lblCantStock.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCantStock.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(212)))), ((int)(((byte)(216)))));
+            this.lblCantStock.Location = new System.Drawing.Point(227, 180);
+            this.lblCantStock.Name = "lblCantStock";
+            this.lblCantStock.Size = new System.Drawing.Size(46, 17);
+            this.lblCantStock.TabIndex = 111;
+            this.lblCantStock.Text = "Stock:";
+            // 
             // mdTraspasoASucursal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.ClientSize = new System.Drawing.Size(502, 378);
+            this.Controls.Add(this.lblCantStock);
+            this.Controls.Add(this.label5);
             this.Controls.Add(this.txtFechaTraspaso);
             this.Controls.Add(this.txtCantidad);
             this.Controls.Add(this.cboSucursal);
@@ -251,5 +280,7 @@ namespace CapaPresentacion.Modales
         private System.Windows.Forms.ComboBox cboSucursal;
         private System.Windows.Forms.NumericUpDown txtCantidad;
         private System.Windows.Forms.DateTimePicker txtFechaTraspaso;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Label lblCantStock;
     }
 }

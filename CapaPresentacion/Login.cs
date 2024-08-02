@@ -112,7 +112,14 @@ namespace CapaPresentacion
         {
             if (e.KeyCode == Keys.Enter)
             {
-                LoginUsuario();
+                if (cboSucursal.SelectedIndex != -1)
+                {
+                    LoginUsuario();
+
+                }
+                else
+                { MessageBox.Show("La Sucursal es Obligatoria", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
+                
             }
         }
 
@@ -124,6 +131,21 @@ namespace CapaPresentacion
                 GlobalSettings.SucursalId = Convert.ToInt32(((OpcionCombo)cboSucursal.SelectedItem).Valor);
                 GlobalSettings.NombreSucursal = ((OpcionCombo)cboSucursal.SelectedItem).Texto;
                 
+            }
+        }
+
+        private void cboSucursal_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (cboSucursal.SelectedIndex != -1)
+                {
+                    LoginUsuario();
+
+                }
+                else
+                { MessageBox.Show("La Sucursal es Obligatoria", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
+
             }
         }
     }

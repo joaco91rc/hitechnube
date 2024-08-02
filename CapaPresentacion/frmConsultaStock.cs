@@ -43,36 +43,30 @@ namespace CapaPresentacion
             cboBusqueda.SelectedIndex = 1;
 
             List<Producto> listaProducto = new CN_Producto().Listar();
-            
-            foreach (Producto item in listaProducto)
-            {   
 
-                int stockH1 = new CN_ProductoNegocio().ObtenerStockProductoEnSucursal(item.idProducto, 1);
-                int stockH2 = new CN_ProductoNegocio().ObtenerStockProductoEnSucursal(item.idProducto, 2);
-                int stockAS = new CN_ProductoNegocio().ObtenerStockProductoEnSucursal(item.idProducto, 3);
-                int stockAC = new CN_ProductoNegocio().ObtenerStockProductoEnSucursal(item.idProducto, 4);
-                int stockTotal = stockH1 + stockH2 + stockAS + stockAC;
+            foreach (Producto item in listaProducto)
+            {
                 decimal precioVentaCotizado = item.precioVenta * cotizacionActiva;
                 decimal precioConIncremento = precioVentaCotizado + (precioVentaCotizado * 0.30m);
 
-                dgvData.Rows.Add(new object[] { item.idProducto,
-                    item.codigo,
-                    item.nombre,
-                    
-                    item.oCategoria.idCategoria,
-                    item.oCategoria.descripcion,
-                    stockTotal,
-                    stockH1,
-                    stockH2,
-                    stockAS,
-                    stockAC,                                       
-                    item.precioCompra,
-                    item.precioVenta,
-                    precioVentaCotizado.ToString("0.00"),
-                    precioConIncremento.ToString("0.00"),
-                    item.estado==true?1:0,
-                    item.estado==true? "Activo": "No Activo"
-                    });
+                dgvData.Rows.Add(new object[] {
+        item.idProducto,
+        item.codigo,
+        item.nombre,
+        item.oCategoria.idCategoria,
+        item.oCategoria.descripcion,
+        item.stockTotal,
+        item.stockH1,
+        item.stockH2,
+        item.stockAS,
+        item.stockAC,
+        item.precioCompra,
+        item.precioVenta,
+        precioVentaCotizado.ToString("0.00"),
+        precioConIncremento.ToString("0.00"),
+        item.estado == true ? 1 : 0,
+        item.estado == true ? "Activo" : "No Activo"
+    });
             }
         }
 

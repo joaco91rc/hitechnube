@@ -22,7 +22,8 @@ namespace CapaPresentacion.Modales
             // Asignar los valores a los controles del formulario modal
             txtIdProducto.Text = idProducto.ToString();
             txtProducto.Text = nombre;
-           
+            lblCantStock.Text =new CN_ProductoNegocio().ObtenerStockProductoEnSucursal(idProducto, GlobalSettings.SucursalId).ToString();
+
         }
 
         private void iconPictureBox1_Click(object sender, EventArgs e)
@@ -34,6 +35,7 @@ namespace CapaPresentacion.Modales
         {
             txtFechaTraspaso.Text = DateTime.Now.Date.ToString();
             CargarComboBoxSucursal();
+           
         }
 
         private void CargarComboBoxSucursal()

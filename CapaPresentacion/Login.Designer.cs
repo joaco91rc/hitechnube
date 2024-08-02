@@ -180,6 +180,7 @@ namespace CapaPresentacion
             this.cboSucursal.Size = new System.Drawing.Size(405, 21);
             this.cboSucursal.TabIndex = 3;
             this.cboSucursal.SelectedIndexChanged += new System.EventHandler(this.cboSucursal_SelectedIndexChanged);
+            this.cboSucursal.KeyDown += new System.Windows.Forms.KeyEventHandler(this.cboSucursal_KeyDown);
             // 
             // Login
             // 

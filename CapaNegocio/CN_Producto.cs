@@ -13,11 +13,16 @@ namespace CapaNegocio
 
         private CD_Producto objcd_Producto = new CD_Producto();
 
+        public List<Producto> Listar(int idNegocio)
+        {
+            return objcd_Producto.Listar(idNegocio);
+        }
+
+
         public List<Producto> Listar()
         {
             return objcd_Producto.Listar();
         }
-
         public Producto ObtenerProductoPorId(int idProducto)
         {
             return objcd_Producto.ObtenerProductoPorId(idProducto);

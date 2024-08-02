@@ -12,6 +12,52 @@ namespace CapaDatos
     public class CD_Producto
     {
 
+        public List<Producto> Listar(int idNegocio)
+        {
+            List<Producto> lista = new List<Producto>();
+            using (SqlConnection oconexion = new SqlConnection(Conexion.cadena))
+            {
+                try
+                {
+                    StringBuilder query = new StringBuilder();
+                    query.AppendLine("select p.idProducto, p.codigo, p.nombre, p.descripcion, c.idCategoria, c.descripcion[DescripcionCategoria],");
+                    query.AppendLine("ISNULL(pn.stock, 0) as stock, p.precioCompra, p.precioVenta, p.estado, p.costoPesos");
+                    query.AppendLine("from Producto p");
+                    query.AppendLine("inner join CATEGORIA c on c.idCategoria = p.idCategoria");
+                    query.AppendLine("left join PRODUCTONEGOCIO pn on pn.idProducto = p.idProducto and pn.idNegocio = @idNegocio");
+                    SqlCommand cmd = new SqlCommand(query.ToString(), oconexion);
+                    cmd.Parameters.AddWithValue("@idNegocio", idNegocio);
+                    cmd.CommandType = CommandType.Text;
+                    oconexion.Open();
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            lista.Add(new Producto()
+                            {
+                                idProducto = Convert.ToInt32(dr["idProducto"]),
+                                codigo = dr["codigo"].ToString(),
+                                nombre = dr["nombre"].ToString(),
+                                descripcion = dr["descripcion"].ToString(),
+                                oCategoria = new Categoria() { idCategoria = Convert.ToInt32(dr["idCategoria"]), descripcion = dr["DescripcionCategoria"].ToString() },
+                                costoPesos = Convert.ToDecimal(dr["costoPesos"]),
+                                precioCompra = Convert.ToDecimal(dr["precioCompra"]),
+                                precioVenta = Convert.ToDecimal(dr["precioVenta"]),
+                                estado = Convert.ToBoolean(dr["estado"]),
+                                stock = Convert.ToInt32(dr["stock"])
+                            });
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    lista = new List<Producto>();
+                }
+            }
+            return lista;
+        }
+
         public List<Producto> Listar()
         {
             List<Producto> lista = new List<Producto>();
@@ -19,10 +65,17 @@ namespace CapaDatos
             {
                 try
                 {
-
                     StringBuilder query = new StringBuilder();
-                    query.AppendLine("select p.idProducto,p.codigo,p.nombre,p.descripcion,c.idCategoria,c.descripcion[DescripcionCategoria],p.stock,p.precioCompra,p.precioVenta,p.estado,p.costoPesos from Producto p");
-                    query.AppendLine("inner join CATEGORIA c on c.idCategoria = p.idCategoria");
+                    query.AppendLine("SELECT p.idProducto, p.codigo, p.nombre, p.descripcion, c.idCategoria, c.descripcion[DescripcionCategoria],");
+                    query.AppendLine("ISNULL(SUM(CASE WHEN pn.idNegocio = 1 THEN pn.stock ELSE 0 END), 0) as stockH1,");
+                    query.AppendLine("ISNULL(SUM(CASE WHEN pn.idNegocio = 2 THEN pn.stock ELSE 0 END), 0) as stockH2,");
+                    query.AppendLine("ISNULL(SUM(CASE WHEN pn.idNegocio = 3 THEN pn.stock ELSE 0 END), 0) as stockAS,");
+                    query.AppendLine("ISNULL(SUM(CASE WHEN pn.idNegocio = 4 THEN pn.stock ELSE 0 END), 0) as stockAC,");
+                    query.AppendLine("p.precioCompra, p.precioVenta, p.estado, p.costoPesos");
+                    query.AppendLine("FROM Producto p");
+                    query.AppendLine("INNER JOIN CATEGORIA c ON c.idCategoria = p.idCategoria");
+                    query.AppendLine("LEFT JOIN PRODUCTONEGOCIO pn ON pn.idProducto = p.idProducto");
+                    query.AppendLine("GROUP BY p.idProducto, p.codigo, p.nombre, p.descripcion, c.idCategoria, c.descripcion, p.precioCompra, p.precioVenta, p.estado, p.costoPesos");
                     SqlCommand cmd = new SqlCommand(query.ToString(), oconexion);
                     cmd.CommandType = CommandType.Text;
                     oconexion.Open();
@@ -41,18 +94,19 @@ namespace CapaDatos
                                 costoPesos = Convert.ToDecimal(dr["costoPesos"]),
                                 precioCompra = Convert.ToDecimal(dr["precioCompra"]),
                                 precioVenta = Convert.ToDecimal(dr["precioVenta"]),
-                                estado = Convert.ToBoolean(dr["estado"])
-                                
+                                estado = Convert.ToBoolean(dr["estado"]),
+                                stockH1 = Convert.ToInt32(dr["stockH1"]),
+                                stockH2 = Convert.ToInt32(dr["stockH2"]),
+                                stockAS = Convert.ToInt32(dr["stockAS"]),
+                                stockAC = Convert.ToInt32(dr["stockAC"])
                             });
                         }
                     }
-
                 }
                 catch (Exception ex)
                 {
                     lista = new List<Producto>();
                 }
-
             }
             return lista;
         }

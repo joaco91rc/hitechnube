@@ -82,11 +82,11 @@ namespace CapaPresentacion
             cboBusqueda.SelectedIndex = 1;
 
             //Mostrar todos los Productos
-            List<Producto> listaProducto = new CN_Producto().Listar();
+            List<Producto> listaProducto = new CN_Producto().Listar(GlobalSettings.SucursalId);
             
             foreach (Producto item in listaProducto)
             {
-                int stockProducto = new CN_ProductoNegocio().ObtenerStockProductoEnSucursal(item.idProducto, GlobalSettings.SucursalId);
+                //int stockProducto = new CN_ProductoNegocio().ObtenerStockProductoEnSucursal(item.idProducto, GlobalSettings.SucursalId);
                 
                 dgvData.Rows.Add(new object[] { "",item.idProducto,
                     item.codigo,
@@ -94,7 +94,7 @@ namespace CapaPresentacion
                     item.descripcion,
                     item.oCategoria.idCategoria,
                     item.oCategoria.descripcion,
-                    stockProducto,
+                    item.stock,
                     item.precioCompra,
                     item.costoPesos,
                     item.precioVenta,

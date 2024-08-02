@@ -58,17 +58,17 @@ namespace CapaPresentacion.Modales
         {
             dgvData.Rows.Clear();
             //Mostrar todos los Productos
-            List<Producto> listaProducto = new CN_Producto().Listar();
+            List<Producto> listaProducto = new CN_Producto().Listar(GlobalSettings.SucursalId);
 
             foreach (Producto item in listaProducto)
             {
-                int stockProducto = new CN_ProductoNegocio().ObtenerStockProductoEnSucursal(item.idProducto, GlobalSettings.SucursalId);
+                //int stockProducto = new CN_ProductoNegocio().ObtenerStockProductoEnSucursal(item.idProducto, GlobalSettings.SucursalId);
                 
                     dgvData.Rows.Add(new object[] { item.idProducto,
                     item.codigo,
                     item.nombre,
                     item.oCategoria.descripcion,
-                    stockProducto,
+                    item.stock,
                     item.costoPesos,
                     item.precioCompra,
                     item.precioVenta,

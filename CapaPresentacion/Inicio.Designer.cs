@@ -39,6 +39,7 @@ namespace CapaPresentacion
             this.cotizacionDolarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.subMenuFormaPago = new System.Windows.Forms.ToolStripMenuItem();
             this.subMenuStock = new System.Windows.Forms.ToolStripMenuItem();
+            this.subMenuTraspasoMercaderia = new System.Windows.Forms.ToolStripMenuItem();
             this.menuVentas = new FontAwesome.Sharp.IconMenuItem();
             this.subMenuRegistrarVenta = new FontAwesome.Sharp.IconMenuItem();
             this.subMenuDetalleVenta = new FontAwesome.Sharp.IconMenuItem();
@@ -76,7 +77,6 @@ namespace CapaPresentacion
             this.panel3 = new System.Windows.Forms.Panel();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.btnCerrarSesion = new FontAwesome.Sharp.IconButton();
-            this.subMenuTraspasoMercaderia = new System.Windows.Forms.ToolStripMenuItem();
             this.menu.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -203,6 +203,15 @@ namespace CapaPresentacion
             this.subMenuStock.Size = new System.Drawing.Size(259, 26);
             this.subMenuStock.Text = "Stock";
             this.subMenuStock.Click += new System.EventHandler(this.subMenuStock_Click);
+            // 
+            // subMenuTraspasoMercaderia
+            // 
+            this.subMenuTraspasoMercaderia.BackColor = System.Drawing.Color.ForestGreen;
+            this.subMenuTraspasoMercaderia.ForeColor = System.Drawing.Color.White;
+            this.subMenuTraspasoMercaderia.Name = "subMenuTraspasoMercaderia";
+            this.subMenuTraspasoMercaderia.Size = new System.Drawing.Size(259, 26);
+            this.subMenuTraspasoMercaderia.Text = "Traspaso de Mercaderia";
+            this.subMenuTraspasoMercaderia.Click += new System.EventHandler(this.subMenuTraspasoMercaderia_Click);
             // 
             // menuVentas
             // 
@@ -540,7 +549,7 @@ namespace CapaPresentacion
             this.lblSucursal.BackColor = System.Drawing.Color.ForestGreen;
             this.lblSucursal.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblSucursal.ForeColor = System.Drawing.Color.White;
-            this.lblSucursal.Location = new System.Drawing.Point(711, 9);
+            this.lblSucursal.Location = new System.Drawing.Point(711, 11);
             this.lblSucursal.Name = "lblSucursal";
             this.lblSucursal.Size = new System.Drawing.Size(45, 17);
             this.lblSucursal.TabIndex = 26;
@@ -692,15 +701,6 @@ namespace CapaPresentacion
             this.btnCerrarSesion.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btnCerrarSesion.UseVisualStyleBackColor = false;
             this.btnCerrarSesion.Click += new System.EventHandler(this.iconButton1_Click);
-            // 
-            // subMenuTraspasoMercaderia
-            // 
-            this.subMenuTraspasoMercaderia.BackColor = System.Drawing.Color.ForestGreen;
-            this.subMenuTraspasoMercaderia.ForeColor = System.Drawing.Color.White;
-            this.subMenuTraspasoMercaderia.Name = "subMenuTraspasoMercaderia";
-            this.subMenuTraspasoMercaderia.Size = new System.Drawing.Size(259, 26);
-            this.subMenuTraspasoMercaderia.Text = "Traspaso de Mercaderia";
-            this.subMenuTraspasoMercaderia.Click += new System.EventHandler(this.subMenuTraspasoMercaderia_Click);
             // 
             // Inicio
             // 

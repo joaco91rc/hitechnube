@@ -24,7 +24,19 @@ namespace CapaEntidad
         public bool estado { get; set; }
         public string fechaRegistro { get; set; }
 
+        public int stock { get; set; }
 
+        public int stockH1 { get; set; }
+        public int stockH2 { get; set; }
+        public int stockAS { get; set; }
+        public int stockAC { get; set; }
+        public int stockTotal
+        {
+            get
+            {
+                return stockH1 + stockH2 + stockAS + stockAC;
+            }
+        }
 
     }
 }

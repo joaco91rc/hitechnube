@@ -86,7 +86,7 @@ namespace CapaPresentacion
         {
             if(e.KeyData== Keys.Enter)
             {
-                Producto oProducto = new CN_Producto().Listar().Where(p => p.codigo == txtCodigoProducto.Text && p.estado == true).FirstOrDefault();
+                Producto oProducto = new CN_Producto().Listar(GlobalSettings.SucursalId).Where(p => p.codigo == txtCodigoProducto.Text && p.estado == true).FirstOrDefault();
                 if (oProducto != null)
                 {
                     txtCodigoProducto.BackColor = Color.ForestGreen;
