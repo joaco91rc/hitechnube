@@ -87,7 +87,7 @@ namespace CapaDatos
 
 
 
-        public Compra ObtenerCompra(string numero)
+        public Compra ObtenerCompra(string numero, int idNegocio)
         {
             Compra objCompra = new Compra();
 
@@ -106,9 +106,10 @@ namespace CapaDatos
                     query.AppendLine("FROM COMPRA C");
                     query.AppendLine("INNER JOIN USUARIO U ON U.idUsuario = C.idUsuario");
                     query.AppendLine("INNER JOIN PROVEEDOR PR ON PR.idProveedor = C.idProveedor");
-                    query.AppendLine("WHERE C.nroDocumento = @numero");
+                    query.AppendLine("WHERE C.nroDocumento = @numero  AND c.idNegocio = @idNegocio");
                     SqlCommand cmd = new SqlCommand(query.ToString(), oconexion);
                     cmd.Parameters.AddWithValue("@numero", numero);
+                    cmd.Parameters.AddWithValue("@idNegocio", idNegocio);
                     cmd.CommandType = CommandType.Text;
                     oconexion.Open();
 
@@ -194,6 +195,40 @@ namespace CapaDatos
             return oLista;
         }
 
+        public void EliminarCompraConDetalle(int idCompra)
+        {
+            using (SqlConnection conexion = new SqlConnection(Conexion.cadena))
+            {
+                conexion.Open();
+                SqlTransaction transaction = conexion.BeginTransaction();
+
+                try
+                {
+                    // Eliminar los detalles de la compra
+                    SqlCommand deleteDetalleCmd = new SqlCommand(@"
+                DELETE FROM DETALLE_COMPRA 
+                WHERE idCompra = @idCompra", conexion, transaction);
+                    deleteDetalleCmd.Parameters.AddWithValue("@idCompra", idCompra);
+                    deleteDetalleCmd.ExecuteNonQuery();
+
+                    // Eliminar la compra
+                    SqlCommand deleteCompraCmd = new SqlCommand(@"
+                DELETE FROM COMPRA 
+                WHERE idCompra = @idCompra", conexion, transaction);
+                    deleteCompraCmd.Parameters.AddWithValue("@idCompra", idCompra);
+                    deleteCompraCmd.ExecuteNonQuery();
+
+                    // Confirmar la transacción
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    // Revertir la transacción en caso de error
+                    transaction.Rollback();
+                    throw; // Re-lanzar la excepción para manejarla fuera del método si es necesario
+                }
+            }
+        }
 
 
     }

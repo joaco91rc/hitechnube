@@ -294,6 +294,8 @@ namespace CapaPresentacion
             txtDocAsociado.Text = "";
             cboCajaAsociada.SelectedIndex = -1;
             txtMonto.Select();
+            txtIdTransaccion.Text = "0";
+            txtIndice.Text = "-1";
 
         }
 
@@ -363,6 +365,93 @@ namespace CapaPresentacion
                     }
 
                 }
+            }
+        }
+
+        private void dgvData_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (dgvData.Columns[e.ColumnIndex].Name == "btnSeleccionar")
+            {
+                int indice = e.RowIndex;
+
+                if (indice >= 0)
+                {
+                    txtIndice.Text = indice.ToString();
+                    txtIdTransaccion.Text = dgvData.Rows[indice].Cells["idTransaccion"].Value.ToString();
+                    cboTipoMovimiento.Text = dgvData.Rows[indice].Cells["tipoTransaccion"].Value.ToString();
+                    cboFormaPago.Text = dgvData.Rows[indice].Cells["formaPago"].Value.ToString();
+                    cboCajaAsociada.Text = dgvData.Rows[indice].Cells["cajaAsociada"].Value.ToString();
+                    txtMonto.Text = dgvData.Rows[indice].Cells["monto"].Value.ToString();
+                    cboCajaAsociada.Text = dgvData.Rows[indice].Cells["cajaAsociada"].Value.ToString();
+                    txtDocAsociado.Text = dgvData.Rows[indice].Cells["docAsociado"].Value.ToString();
+
+
+                   
+
+                }
+
+            }
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            List<CajaRegistradora> lista = new CN_CajaRegistradora().Listar(GlobalSettings.SucursalId);
+            CajaRegistradora cajaAbierta = lista.Where(c => c.estado == true).FirstOrDefault();
+            if (Convert.ToInt32(txtIdTransaccion.Text) != 0)
+            {
+
+                if (MessageBox.Show("Desea eliminar el Movimiento?", "Confirmar Eliminacion", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    string mensaje = string.Empty;
+
+                    if (GlobalSettings.RolUsuario == 1)
+                    {
+                        bool respuesta = new CN_Transaccion().EliminarMovimiento(Convert.ToInt32(txtIdTransaccion.Text), out mensaje);
+                        if (respuesta)
+                        {
+
+                            dgvData.Rows.RemoveAt(Convert.ToInt32(txtIndice.Text));
+                            totalesCaja = CalcularTotales(cajaAbierta);
+                            txtSaldo.Text = (totalesCaja.Total + Convert.ToDecimal(txtSaldoInicial.Text)).ToString();
+                            txtSaldoMP.Text = (totalesCaja.TotalMP + Convert.ToDecimal(txtSaldoInicialMP.Text)).ToString();
+                            txtSaldoUSS.Text = (totalesCaja.TotalUSS + Convert.ToDecimal(txtSaldoInicialUSS.Text)).ToString();
+                            txtSaldoGalicia.Text = (totalesCaja.TotalGalicia + Convert.ToDecimal(txtSaldoInicialGalicia.Text)).ToString();
+                            Limpiar();
+                        }
+
+                        else
+                        {
+
+                            MessageBox.Show(mensaje, "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+
+
+                        }
+                    } else
+                    {
+                        MessageBox.Show("No posee permisos para Eliminar un Movimiento de Caja", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    }
+
+
+
+                }
+            }
+        }
+
+        private void dgvData_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+            if (e.ColumnIndex == 0)
+            {
+
+                e.Paint(e.CellBounds, DataGridViewPaintParts.All);
+
+                var w = Properties.Resources.check20.Width;
+                var h = Properties.Resources.check20.Height;
+                var x = e.CellBounds.Left + (e.CellBounds.Width - w) / 2;
+                var y = e.CellBounds.Top + (e.CellBounds.Width - h) / 2;
+                e.Graphics.DrawImage(Properties.Resources.check20, new Rectangle(x, y, w, h));
+                e.Handled = true;
             }
         }
     }

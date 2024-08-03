@@ -50,7 +50,7 @@ namespace CapaPresentacion
             this.txtBusqueda = new System.Windows.Forms.TextBox();
             this.cboBusqueda = new System.Windows.Forms.ComboBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.txtIdProveedor = new System.Windows.Forms.TextBox();
+            this.txtIdTransaccion = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.btnCerrarCaja = new FontAwesome.Sharp.IconButton();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -74,6 +74,9 @@ namespace CapaPresentacion
             this.label16 = new System.Windows.Forms.Label();
             this.txtSaldoGalicia = new System.Windows.Forms.TextBox();
             this.label17 = new System.Windows.Forms.Label();
+            this.cboCajaAsociada = new System.Windows.Forms.ComboBox();
+            this.label18 = new System.Windows.Forms.Label();
+            this.btnEliminar = new FontAwesome.Sharp.IconButton();
             this.btnSeleccionar = new System.Windows.Forms.DataGridViewButtonColumn();
             this.idCajaRegistradora = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.idTransaccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -84,8 +87,6 @@ namespace CapaPresentacion
             this.cajaAsociada = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.docAsociado = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.usuarioTransaccion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cboCajaAsociada = new System.Windows.Forms.ComboBox();
-            this.label18 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvData)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -248,6 +249,8 @@ namespace CapaPresentacion
             this.dgvData.RowTemplate.Height = 28;
             this.dgvData.Size = new System.Drawing.Size(824, 236);
             this.dgvData.TabIndex = 82;
+            this.dgvData.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvData_CellContentClick);
+            this.dgvData.CellPainting += new System.Windows.Forms.DataGridViewCellPaintingEventHandler(this.dgvData_CellPainting);
             // 
             // txtIndice
             // 
@@ -337,18 +340,18 @@ namespace CapaPresentacion
             this.label12.TabIndex = 85;
             this.label12.Text = "Buscar por:";
             // 
-            // txtIdProveedor
+            // txtIdTransaccion
             // 
-            this.txtIdProveedor.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.txtIdProveedor.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtIdProveedor.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtIdProveedor.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(212)))), ((int)(((byte)(216)))));
-            this.txtIdProveedor.Location = new System.Drawing.Point(355, 36);
-            this.txtIdProveedor.Name = "txtIdProveedor";
-            this.txtIdProveedor.Size = new System.Drawing.Size(36, 18);
-            this.txtIdProveedor.TabIndex = 84;
-            this.txtIdProveedor.Text = "0";
-            this.txtIdProveedor.Visible = false;
+            this.txtIdTransaccion.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.txtIdTransaccion.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtIdTransaccion.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtIdTransaccion.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(212)))), ((int)(((byte)(216)))));
+            this.txtIdTransaccion.Location = new System.Drawing.Point(355, 36);
+            this.txtIdTransaccion.Name = "txtIdTransaccion";
+            this.txtIdTransaccion.Size = new System.Drawing.Size(36, 18);
+            this.txtIdTransaccion.TabIndex = 84;
+            this.txtIdTransaccion.Text = "0";
+            this.txtIdTransaccion.Visible = false;
             // 
             // label11
             // 
@@ -413,7 +416,7 @@ namespace CapaPresentacion
             this.btnGuardar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.btnGuardar.Location = new System.Drawing.Point(15, 333);
             this.btnGuardar.Name = "btnGuardar";
-            this.btnGuardar.Size = new System.Drawing.Size(331, 31);
+            this.btnGuardar.Size = new System.Drawing.Size(253, 31);
             this.btnGuardar.TabIndex = 77;
             this.btnGuardar.Text = "Registrar Movimiento";
             this.btnGuardar.UseVisualStyleBackColor = false;
@@ -622,12 +625,64 @@ namespace CapaPresentacion
             this.label17.TabIndex = 108;
             this.label17.Text = "Saldo Galicia:";
             // 
+            // cboCajaAsociada
+            // 
+            this.cboCajaAsociada.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboCajaAsociada.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cboCajaAsociada.FormattingEnabled = true;
+            this.cboCajaAsociada.Items.AddRange(new object[] {
+            "GALICIA",
+            "EFECTIVO",
+            "MERCADO PAGO",
+            "DOLARES"});
+            this.cboCajaAsociada.Location = new System.Drawing.Point(172, 201);
+            this.cboCajaAsociada.Name = "cboCajaAsociada";
+            this.cboCajaAsociada.Size = new System.Drawing.Size(178, 21);
+            this.cboCajaAsociada.TabIndex = 113;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.label18.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label18.ForeColor = System.Drawing.Color.ForestGreen;
+            this.label18.Location = new System.Drawing.Point(12, 201);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(93, 17);
+            this.label18.TabIndex = 112;
+            this.label18.Text = "Caja Asociada";
+            // 
+            // btnEliminar
+            // 
+            this.btnEliminar.BackColor = System.Drawing.Color.Firebrick;
+            this.btnEliminar.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.btnEliminar.FlatAppearance.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(216)))), ((int)(((byte)(212)))));
+            this.btnEliminar.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(20)))), ((int)(((byte)(20)))), ((int)(((byte)(20)))));
+            this.btnEliminar.FlatAppearance.MouseOverBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(111)))), ((int)(((byte)(216)))), ((int)(((byte)(212)))));
+            this.btnEliminar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnEliminar.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnEliminar.ForeColor = System.Drawing.Color.White;
+            this.btnEliminar.IconChar = FontAwesome.Sharp.IconChar.TrashAlt;
+            this.btnEliminar.IconColor = System.Drawing.Color.White;
+            this.btnEliminar.IconFont = FontAwesome.Sharp.IconFont.Auto;
+            this.btnEliminar.IconSize = 28;
+            this.btnEliminar.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnEliminar.Location = new System.Drawing.Point(274, 333);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(141, 31);
+            this.btnEliminar.TabIndex = 114;
+            this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.UseVisualStyleBackColor = false;
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            // 
             // btnSeleccionar
             // 
+            this.btnSeleccionar.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.None;
             this.btnSeleccionar.HeaderText = "";
+            this.btnSeleccionar.MinimumWidth = 30;
             this.btnSeleccionar.Name = "btnSeleccionar";
             this.btnSeleccionar.ReadOnly = true;
-            this.btnSeleccionar.Width = 7;
+            this.btnSeleccionar.Width = 30;
             // 
             // idCajaRegistradora
             // 
@@ -696,38 +751,12 @@ namespace CapaPresentacion
             this.usuarioTransaccion.ReadOnly = true;
             this.usuarioTransaccion.Width = 166;
             // 
-            // cboCajaAsociada
-            // 
-            this.cboCajaAsociada.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboCajaAsociada.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.cboCajaAsociada.FormattingEnabled = true;
-            this.cboCajaAsociada.Items.AddRange(new object[] {
-            "GALICIA",
-            "EFECTIVO",
-            "MERCADO PAGO",
-            "DOLARES"});
-            this.cboCajaAsociada.Location = new System.Drawing.Point(172, 201);
-            this.cboCajaAsociada.Name = "cboCajaAsociada";
-            this.cboCajaAsociada.Size = new System.Drawing.Size(178, 21);
-            this.cboCajaAsociada.TabIndex = 113;
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.label18.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label18.ForeColor = System.Drawing.Color.ForestGreen;
-            this.label18.Location = new System.Drawing.Point(12, 201);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(93, 17);
-            this.label18.TabIndex = 112;
-            this.label18.Text = "Caja Asociada";
-            // 
             // frmCajaRegistradora
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1350, 729);
+            this.Controls.Add(this.btnEliminar);
             this.Controls.Add(this.cboCajaAsociada);
             this.Controls.Add(this.label18);
             this.Controls.Add(this.txtSaldoInicialGalicia);
@@ -763,7 +792,7 @@ namespace CapaPresentacion
             this.Controls.Add(this.txtBusqueda);
             this.Controls.Add(this.cboBusqueda);
             this.Controls.Add(this.label12);
-            this.Controls.Add(this.txtIdProveedor);
+            this.Controls.Add(this.txtIdTransaccion);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.btnCerrarCaja);
             this.Controls.Add(this.pictureBox1);
@@ -799,7 +828,7 @@ namespace CapaPresentacion
         private System.Windows.Forms.TextBox txtBusqueda;
         private System.Windows.Forms.ComboBox cboBusqueda;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox txtIdProveedor;
+        private System.Windows.Forms.TextBox txtIdTransaccion;
         private System.Windows.Forms.Label label11;
         private FontAwesome.Sharp.IconButton btnCerrarCaja;
         private System.Windows.Forms.PictureBox pictureBox1;
@@ -823,6 +852,9 @@ namespace CapaPresentacion
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TextBox txtSaldoGalicia;
         private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.ComboBox cboCajaAsociada;
+        private System.Windows.Forms.Label label18;
+        private FontAwesome.Sharp.IconButton btnEliminar;
         private System.Windows.Forms.DataGridViewButtonColumn btnSeleccionar;
         private System.Windows.Forms.DataGridViewTextBoxColumn idCajaRegistradora;
         private System.Windows.Forms.DataGridViewTextBoxColumn idTransaccion;
@@ -833,7 +865,5 @@ namespace CapaPresentacion
         private System.Windows.Forms.DataGridViewTextBoxColumn cajaAsociada;
         private System.Windows.Forms.DataGridViewTextBoxColumn docAsociado;
         private System.Windows.Forms.DataGridViewTextBoxColumn usuarioTransaccion;
-        private System.Windows.Forms.ComboBox cboCajaAsociada;
-        private System.Windows.Forms.Label label18;
     }
 }

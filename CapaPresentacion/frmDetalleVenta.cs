@@ -26,13 +26,15 @@ namespace CapaPresentacion
         private void frmDetalleVenta_Load(object sender, EventArgs e)
         {
             txtBuscarVenta.Select();
+            lblIdVenta.Text = "0";
         }
 
         private void btnBuscarVenta_Click(object sender, EventArgs e)
         {
-            Venta oVenta = new CN_Venta().ObtenerVenta(txtBuscarVenta.Text);
+            Venta oVenta = new CN_Venta().ObtenerVenta(txtBuscarVenta.Text,GlobalSettings.SucursalId);
             if(oVenta.idVenta != 0)
             {
+                lblIdVenta.Text = oVenta.idVenta.ToString();
                 txtnroDocumento.Text = oVenta.nroDocumento;
                 dtpFecha.Text = oVenta.fechaRegistro.ToString();
                 cboTipoDocumento.Text = oVenta.tipoDocumento;
@@ -62,7 +64,7 @@ namespace CapaPresentacion
             }
         }
 
-        private void btnLimpiar_Click(object sender, EventArgs e)
+        private void Limpiar()
         {
             dtpFecha.Value = DateTime.Now;
             cboTipoDocumento.SelectedItem = 0;
@@ -73,6 +75,21 @@ namespace CapaPresentacion
             txtTotalAPagar.Text = "0.00";
             txtPagaCon.Text = "0.00";
             txtCambio.Text = "0.00";
+            lblIdVenta.Text = "0";
+            txtMontoDescuento.Text = string.Empty;
+            txtFormaPago1.Text = string.Empty;
+            txtFormaPago2.Text = string.Empty;
+            txtFormaPago3.Text = string.Empty;
+            txtFormaPago4.Text = string.Empty;
+            txtMontoFP1.Text = string.Empty;
+            txtMontoFP2.Text = string.Empty;
+            txtMontoFP3.Text = string.Empty;
+            txtMontoFP4.Text = string.Empty;
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            Limpiar();
         }
 
         private void btnDescargarPDF_Click(object sender, EventArgs e)
@@ -169,6 +186,29 @@ namespace CapaPresentacion
                 }
             }
 
+        }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+
+        {
+            
+            string mensaje = string.Empty;
+            if (GlobalSettings.RolUsuario == 1)
+            {
+                bool resultado = new CN_Venta().EliminarVentaConDetalle(Convert.ToInt32(lblIdVenta.Text), out mensaje);
+                if (resultado)
+                {
+                    MessageBox.Show("Venta Eliminada", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Limpiar();
+                }
+                else
+                {
+                    MessageBox.Show("No se ha podido Eliminar la Venta", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            } else
+            {
+                MessageBox.Show("No posee permisos para Eliminar una Venta", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
         }
     }
     }

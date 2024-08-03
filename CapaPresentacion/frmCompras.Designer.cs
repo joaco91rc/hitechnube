@@ -50,8 +50,8 @@ namespace CapaPresentacion
             this.gbInfoProducto = new System.Windows.Forms.GroupBox();
             this.txtIdProducto = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.label9 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
+            this.lblPrecioVenta = new System.Windows.Forms.Label();
+            this.lblPrecioCompra = new System.Windows.Forms.Label();
             this.txtCantidad = new System.Windows.Forms.NumericUpDown();
             this.txtPrecioventa = new System.Windows.Forms.TextBox();
             this.txtPrecioCompra = new System.Windows.Forms.TextBox();
@@ -253,8 +253,8 @@ namespace CapaPresentacion
             this.gbInfoProducto.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.gbInfoProducto.Controls.Add(this.txtIdProducto);
             this.gbInfoProducto.Controls.Add(this.label10);
-            this.gbInfoProducto.Controls.Add(this.label9);
-            this.gbInfoProducto.Controls.Add(this.label8);
+            this.gbInfoProducto.Controls.Add(this.lblPrecioVenta);
+            this.gbInfoProducto.Controls.Add(this.lblPrecioCompra);
             this.gbInfoProducto.Controls.Add(this.txtCantidad);
             this.gbInfoProducto.Controls.Add(this.txtPrecioventa);
             this.gbInfoProducto.Controls.Add(this.txtPrecioCompra);
@@ -286,39 +286,41 @@ namespace CapaPresentacion
             this.label10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.label10.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label10.ForeColor = System.Drawing.Color.ForestGreen;
-            this.label10.Location = new System.Drawing.Point(827, 50);
+            this.label10.Location = new System.Drawing.Point(526, 50);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(67, 17);
             this.label10.TabIndex = 50;
             this.label10.Text = "Cantidad:";
             // 
-            // label9
+            // lblPrecioVenta
             // 
-            this.label9.AutoSize = true;
-            this.label9.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.label9.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.ForeColor = System.Drawing.Color.ForestGreen;
-            this.label9.Location = new System.Drawing.Point(680, 50);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(89, 17);
-            this.label9.TabIndex = 67;
-            this.label9.Text = "Precio Venta:";
+            this.lblPrecioVenta.AutoSize = true;
+            this.lblPrecioVenta.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.lblPrecioVenta.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPrecioVenta.ForeColor = System.Drawing.Color.ForestGreen;
+            this.lblPrecioVenta.Location = new System.Drawing.Point(782, 50);
+            this.lblPrecioVenta.Name = "lblPrecioVenta";
+            this.lblPrecioVenta.Size = new System.Drawing.Size(89, 17);
+            this.lblPrecioVenta.TabIndex = 67;
+            this.lblPrecioVenta.Text = "Precio Venta:";
+            this.lblPrecioVenta.Visible = false;
             // 
-            // label8
+            // lblPrecioCompra
             // 
-            this.label8.AutoSize = true;
-            this.label8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
-            this.label8.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.ForeColor = System.Drawing.Color.ForestGreen;
-            this.label8.Location = new System.Drawing.Point(526, 50);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(102, 17);
-            this.label8.TabIndex = 50;
-            this.label8.Text = "Precio Compra:";
+            this.lblPrecioCompra.AutoSize = true;
+            this.lblPrecioCompra.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
+            this.lblPrecioCompra.Font = new System.Drawing.Font("Segoe UI", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPrecioCompra.ForeColor = System.Drawing.Color.ForestGreen;
+            this.lblPrecioCompra.Location = new System.Drawing.Point(634, 50);
+            this.lblPrecioCompra.Name = "lblPrecioCompra";
+            this.lblPrecioCompra.Size = new System.Drawing.Size(102, 17);
+            this.lblPrecioCompra.TabIndex = 50;
+            this.lblPrecioCompra.Text = "Precio Compra:";
+            this.lblPrecioCompra.Visible = false;
             // 
             // txtCantidad
             // 
-            this.txtCantidad.Location = new System.Drawing.Point(830, 71);
+            this.txtCantidad.Location = new System.Drawing.Point(529, 71);
             this.txtCantidad.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -336,19 +338,21 @@ namespace CapaPresentacion
             // txtPrecioventa
             // 
             this.txtPrecioventa.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtPrecioventa.Location = new System.Drawing.Point(678, 71);
+            this.txtPrecioventa.Location = new System.Drawing.Point(780, 71);
             this.txtPrecioventa.Name = "txtPrecioventa";
             this.txtPrecioventa.Size = new System.Drawing.Size(139, 29);
             this.txtPrecioventa.TabIndex = 66;
+            this.txtPrecioventa.Visible = false;
             this.txtPrecioventa.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecioventa_KeyPress);
             // 
             // txtPrecioCompra
             // 
             this.txtPrecioCompra.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
-            this.txtPrecioCompra.Location = new System.Drawing.Point(529, 71);
+            this.txtPrecioCompra.Location = new System.Drawing.Point(637, 71);
             this.txtPrecioCompra.Name = "txtPrecioCompra";
             this.txtPrecioCompra.Size = new System.Drawing.Size(139, 29);
             this.txtPrecioCompra.TabIndex = 65;
+            this.txtPrecioCompra.Visible = false;
             this.txtPrecioCompra.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPrecioCompra_KeyPress);
             // 
             // txtProducto
@@ -658,8 +662,8 @@ namespace CapaPresentacion
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox txtIdProducto;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label lblPrecioVenta;
+        private System.Windows.Forms.Label lblPrecioCompra;
         private System.Windows.Forms.NumericUpDown txtCantidad;
         private FontAwesome.Sharp.IconButton btnAgregarProducto;
         private System.Windows.Forms.DataGridView dgvData;

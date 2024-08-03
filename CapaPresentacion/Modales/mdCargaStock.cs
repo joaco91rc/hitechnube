@@ -125,7 +125,7 @@ namespace CapaPresentacion.Modales
                     decimal precioVenta = Convert.ToDecimal(row.Cells["precioVenta"].Value);
                     decimal costoPesos = Convert.ToDecimal(row.Cells["costoPesos"].Value);
                     // Llamar al método para cargar o actualizar el stock del producto
-                    new CN_ProductoNegocio().CargarOActualizarStockProducto(idProducto, idNegocio, nuevoStock);
+                    new CN_ProductoNegocio().SobrescribirStock(idProducto, idNegocio, nuevoStock);
                     var producto = new CN_Producto().ObtenerProductoPorId(idProducto);
                     producto.precioCompra = precioCompra;
                     producto.precioVenta = precioVenta;

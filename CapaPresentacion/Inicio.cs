@@ -55,9 +55,9 @@ namespace CapaPresentacion
         private void Inicio_Load(object sender, EventArgs e)
         {
             //sucursalService = new SucursalService();
-            
 
-            //GlobalSettings.SucursalId = sucursalService.ObtenerSucursalId();
+
+            GlobalSettings.RolUsuario = usuarioActual.oRol.idRol;
 
            
             List<Permiso> listaPermisos = new CN_Permiso().Listar(usuarioActual.idUsuario);

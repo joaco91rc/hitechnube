@@ -163,7 +163,7 @@ namespace CapaDatos
         }
 
 
-        public Venta ObtenerVenta(string numero)
+        public Venta ObtenerVenta(string numero, int idNegocio)
         {
             Venta objVenta = new Venta();
 
@@ -178,9 +178,12 @@ namespace CapaDatos
                     query.AppendLine("SELECT v.idVenta,v.idNegocio, u.nombreCompleto,v.documentoCliente,v.nombreCliente,v.tipoDocumento,v.nroDocumento,v.montoPago,v.montoCambio,v.montoTotal, convert(char(10), v.fechaRegistro, 103)[FechaRegistro],v.formaPago,v.descuento,v.montoDescuento, v.montoFP1,v.montoFP2,v.montoFP3,v.montoFP4,v.formaPago2,v.formaPago3,v.formaPago4");
                     query.AppendLine("FROM VENTA v");
                     query.AppendLine("inner join USUARIO U ON U.idUsuario = V.idUsuario");
-                    query.AppendLine("WHERE v.nroDocumento = @numero");
+                     query.AppendLine("WHERE v.nroDocumento = @numero AND v.idNegocio = @idNegocio");
+            
+                    
                     SqlCommand cmd = new SqlCommand(query.ToString(), oconexion);
                     cmd.Parameters.AddWithValue("@numero", numero);
+                    cmd.Parameters.AddWithValue("@idNegocio", idNegocio);
                     cmd.CommandType = CommandType.Text;
                     
 
@@ -278,6 +281,104 @@ namespace CapaDatos
                 oLista = new List<DetalleVenta>();
             }
             return oLista;
+        }
+
+
+        public List<Venta> ObtenerVentasConDetalle()
+        {
+            List<Venta> listaVentas = new List<Venta>();
+
+            using (SqlConnection conexion = new SqlConnection(Conexion.cadena))
+            {
+                try
+                {
+                    conexion.Open();
+                    StringBuilder query = new StringBuilder();
+                    query.AppendLine("SELECT v.idVenta,v.idNegocio, u.nombreCompleto,v.documentoCliente,v.nombreCliente,v.tipoDocumento,v.nroDocumento,v.montoPago,v.montoCambio,v.montoTotal, convert(char(10), v.fechaRegistro, 103)[FechaRegistro],v.formaPago,v.descuento,v.montoDescuento, v.montoFP1,v.montoFP2,v.montoFP3,v.montoFP4,v.formaPago2,v.formaPago3,v.formaPago4");
+                    query.AppendLine("FROM VENTA v");
+                    query.AppendLine("INNER JOIN USUARIO U ON U.idUsuario = v.idUsuario");
+
+                    SqlCommand cmd = new SqlCommand(query.ToString(), conexion);
+                    cmd.CommandType = CommandType.Text;
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+                        while (dr.Read())
+                        {
+                            Venta objVenta = new Venta()
+                            {
+                                idVenta = Convert.ToInt32(dr["idVenta"]),
+                                idNegocio = Convert.ToInt32(dr["idNegocio"]),
+                                oUsuario = new Usuario() { nombreCompleto = dr["nombreCompleto"].ToString() },
+                                documentoCliente = dr["documentoCliente"].ToString(),
+                                tipoDocumento = dr["tipoDocumento"].ToString(),
+                                nombreCliente = dr["nombreCliente"].ToString(),
+                                nroDocumento = dr["nroDocumento"].ToString(),
+                                montoPago = Convert.ToDecimal(dr["montoPago"].ToString()),
+                                montoCambio = Convert.ToDecimal(dr["montoCambio"].ToString()),
+                                montoTotal = Convert.ToDecimal(dr["montoTotal"].ToString()),
+                                formaPago = dr["formaPago"].ToString(),
+                                descuento = Convert.ToInt32(dr["descuento"]),
+                                montoDescuento = Convert.ToDecimal(dr["montoDescuento"].ToString()),
+                                fechaRegistro = Convert.ToDateTime(dr["FechaRegistro"]),
+                                formaPago2 = dr["formaPago2"].ToString(),
+                                formaPago3 = dr["formaPago3"].ToString(),
+                                formaPago4 = dr["formaPago4"].ToString(),
+                                montoFP1 = Convert.ToDecimal(dr["montoFP1"].ToString()),
+                                montoFP2 = Convert.ToDecimal(dr["montoFP2"].ToString()),
+                                montoFP3 = Convert.ToDecimal(dr["montoFP3"].ToString()),
+                                montoFP4 = Convert.ToDecimal(dr["montoFP4"].ToString()),
+                            };
+
+                            // Obtener los detalles de venta
+                            objVenta.oDetalleVenta = ObtenerDetalleVenta(objVenta.idVenta);
+
+                            listaVentas.Add(objVenta);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    listaVentas = new List<Venta>();
+                }
+            }
+
+            return listaVentas;
+        }
+
+        public void EliminarVentaConDetalle(int idVenta)
+        {
+            using (SqlConnection conexion = new SqlConnection(Conexion.cadena))
+            {
+                conexion.Open();
+                SqlTransaction transaction = conexion.BeginTransaction();
+
+                try
+                {
+                    // Eliminar los detalles de la venta
+                    SqlCommand deleteDetalleCmd = new SqlCommand(@"
+                DELETE FROM DETALLE_VENTA 
+                WHERE idVenta = @idVenta", conexion, transaction);
+                    deleteDetalleCmd.Parameters.AddWithValue("@idVenta", idVenta);
+                    deleteDetalleCmd.ExecuteNonQuery();
+
+                    // Eliminar la venta
+                    SqlCommand deleteVentaCmd = new SqlCommand(@"
+                DELETE FROM VENTA 
+                WHERE idVenta = @idVenta", conexion, transaction);
+                    deleteVentaCmd.Parameters.AddWithValue("@idVenta", idVenta);
+                    deleteVentaCmd.ExecuteNonQuery();
+
+                    // Confirmar la transacción
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    // Revertir la transacción en caso de error
+                    transaction.Rollback();
+                    throw; // Re-lanzar la excepción para manejarla fuera del método si es necesario
+                }
+            }
         }
 
     }

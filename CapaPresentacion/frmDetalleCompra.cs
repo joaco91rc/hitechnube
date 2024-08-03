@@ -25,10 +25,11 @@ namespace CapaPresentacion
 
         private void btnBuscarProducto_Click(object sender, EventArgs e)
         {
-            Compra oCompra = new CN_Compra().ObtenerCompra(txtBuscarCompra.Text);
+            Compra oCompra = new CN_Compra().ObtenerCompra(txtBuscarCompra.Text,GlobalSettings.SucursalId);
 
             if(oCompra.idCompra != 0)
             {
+                lblIdCompra.Text = oCompra.idCompra.ToString();
                 txtnroDocumento.Text = oCompra.nroDocumento;
                 dtpFecha.Text = oCompra.fechaRegistro;
                 cboTipoDocumento.Text = oCompra.tipoDocumento;
@@ -46,8 +47,7 @@ namespace CapaPresentacion
                 txtTotalAPagar.Text = oCompra.montoTotal.ToString("0.00");
             }
         }
-
-        private void btnLimpiar_Click(object sender, EventArgs e)
+        private void Limpiar()
         {
             dtpFecha.Value = DateTime.Now;
             cboTipoDocumento.SelectedItem = 0;
@@ -57,6 +57,11 @@ namespace CapaPresentacion
             dgvData.Rows.Clear();
             txtTotalAPagar.Text = "0.00";
             txtnroDocumento.Text = "";
+            lblIdCompra.Text = "0";
+        }
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            Limpiar();
         }
 
         private void btnDescargarPDF_Click(object sender, EventArgs e)
@@ -143,6 +148,33 @@ namespace CapaPresentacion
         
         }
 
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            string mensaje = string.Empty;
+
+            if (GlobalSettings.RolUsuario == 1)
+            {
+                bool resultado = new CN_Compra().EliminarCompraConDetalle(Convert.ToInt32(lblIdCompra.Text), out mensaje);
+                if (resultado)
+                {
+                    MessageBox.Show("Compra Eliminada", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Limpiar();
+                }
+                else
+                {
+                    MessageBox.Show("No se ha podido Eliminar la Compra", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("No posee permisos para Eliminar una Compra", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void frmDetalleCompra_Load(object sender, EventArgs e)
+        {
+            lblIdCompra.Text = "0";
+        }
     }
 }
 

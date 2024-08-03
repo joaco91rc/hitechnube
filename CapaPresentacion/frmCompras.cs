@@ -38,10 +38,25 @@ namespace CapaPresentacion
             cboTipoDocumento.DisplayMember = "Texto";
             cboTipoDocumento.ValueMember = "Valor";
             cboTipoDocumento.SelectedIndex = 0;
-
+            
             dtpFecha.Text = DateTime.Now.ToString();
             txtIdProducto.Text = "0";
             txtIdProducto.Text = "0";
+
+            if(_Usuario.oRol.idRol == 1)
+            {
+                txtPrecioventa.Visible = true;
+                txtPrecioCompra.Visible = true;
+                lblPrecioCompra.Visible = true;
+                lblPrecioVenta.Visible = true;
+            }
+            else
+            {
+                txtPrecioventa.Visible = false;
+                txtPrecioCompra.Visible = false;
+                lblPrecioCompra.Visible = false;
+                lblPrecioVenta.Visible = false;
+            }
         }
 
         private void btnBuscarProveedor_Click(object sender, EventArgs e)
@@ -73,7 +88,11 @@ namespace CapaPresentacion
                     txtIdProducto.Text = modal._Producto.idProducto.ToString();
                     txtCodigoProducto.Text = modal._Producto.codigo;
                     txtProducto.Text = modal._Producto.nombre;
-                    txtPrecioCompra.Select();
+                    txtPrecioCompra.Text = modal._Producto.precioCompra.ToString();
+                    txtPrecioventa.Text = modal._Producto.precioVenta.ToString();
+                    txtCantidad.Select();
+
+
                 }
                 else
                 {

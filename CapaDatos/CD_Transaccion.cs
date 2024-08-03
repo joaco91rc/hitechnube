@@ -105,5 +105,54 @@ namespace CapaDatos
 
         }
 
+        public bool EliminarMovimiento(int idTransaccion, out string mensaje)
+        {
+            mensaje = string.Empty;
+            bool resultado = false;
+
+            try
+            {
+                using (SqlConnection oconexion = new SqlConnection(Conexion.cadena))
+                {
+                    oconexion.Open();
+                    SqlTransaction transaction = oconexion.BeginTransaction();
+
+                    try
+                    {
+                        // Eliminar el movimiento de la caja registradora
+                        SqlCommand cmd = new SqlCommand(@"
+                    DELETE FROM TRANSACCION_CAJA 
+                    WHERE idTransaccion = @idTransaccion", oconexion, transaction);
+                        cmd.Parameters.AddWithValue("@idTransaccion", idTransaccion);
+
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        if (rowsAffected > 0)
+                        {
+                            transaction.Commit();
+                            resultado = true;
+                            mensaje = "Movimiento eliminado correctamente.";
+                        }
+                        else
+                        {
+                            transaction.Rollback();
+                            mensaje = "No se encontró el movimiento con el ID especificado.";
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        mensaje = "Ocurrió un error al eliminar el movimiento: " + ex.Message;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                mensaje = "Ocurrió un error al conectar con la base de datos: " + ex.Message;
+            }
+
+            return resultado;
+        }
+
     }
 }

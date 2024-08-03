@@ -27,9 +27,9 @@ namespace CapaNegocio
             
         }
 
-        public Compra ObtenerCompra(string numero)
+        public Compra ObtenerCompra(string numero, int idNegocio)
         {
-            Compra oCompra = objcd_compra.ObtenerCompra(numero);
+            Compra oCompra = objcd_compra.ObtenerCompra(numero,idNegocio);
 
             if(oCompra.idCompra != 0)
             {
@@ -38,6 +38,26 @@ namespace CapaNegocio
             }
 
             return oCompra;
+        }
+
+        public bool EliminarCompraConDetalle(int idCompra, out string mensaje)
+        {
+            mensaje = string.Empty;
+            bool resultado = false;
+
+            try
+            {
+                // Llamar al método de la capa de datos para eliminar la compra y sus detalles
+                objcd_compra.EliminarCompraConDetalle(idCompra);
+                resultado = true;
+                mensaje = "La compra y sus detalles fueron eliminados correctamente.";
+            }
+            catch (Exception ex)
+            {
+                mensaje = "Ocurrió un error al eliminar la compra: " + ex.Message;
+            }
+
+            return resultado;
         }
 
     }

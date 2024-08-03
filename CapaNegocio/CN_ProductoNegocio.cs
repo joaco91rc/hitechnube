@@ -26,5 +26,12 @@ namespace CapaNegocio
         }
 
 
+        public void SobrescribirStock(int idProducto, int idNegocio, int nuevoStock)
+        {
+
+            objcd_ProductoNegocio.SobrescribirStock(idProducto, idNegocio, nuevoStock);
+
+        }
+
     }
 }

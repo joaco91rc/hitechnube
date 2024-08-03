@@ -37,9 +37,29 @@ namespace CapaNegocio
 
         }
 
-        public Venta ObtenerVenta(string numero)
+        public bool EliminarVentaConDetalle(int idVenta, out string mensaje)
         {
-            Venta oVenta = objcd_venta.ObtenerVenta(numero);
+            mensaje = string.Empty;
+            bool resultado = false;
+
+            try
+            {
+                // Llamar al método de la capa de datos para eliminar la venta y sus detalles
+                objcd_venta.EliminarVentaConDetalle(idVenta);
+                resultado = true;
+                mensaje = "La venta y sus detalles fueron eliminados correctamente.";
+            }
+            catch (Exception ex)
+            {
+                mensaje = "Ocurrió un error al eliminar la venta: " + ex.Message;
+            }
+
+            return resultado;
+        }
+
+        public Venta ObtenerVenta(string numero, int idNegocio)
+        {
+            Venta oVenta = objcd_venta.ObtenerVenta(numero,idNegocio);
 
             if (oVenta.idVenta != 0)
             {

@@ -431,10 +431,10 @@ namespace CapaPresentacion
             // 
             // descripcion
             // 
+            this.descripcion.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
             this.descripcion.HeaderText = "DESCRIPCION";
             this.descripcion.Name = "descripcion";
             this.descripcion.ReadOnly = true;
-            this.descripcion.Width = 150;
             // 
             // estadoValor
             // 

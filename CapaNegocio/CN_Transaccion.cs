@@ -42,5 +42,24 @@ namespace CapaNegocio
                 return objcd_TransaccionCaja.RegistrarMovimiento(objTransaccion, out mensaje);
             }
         }
+
+
+        public bool EliminarMovimiento(int idTransaccion, out string mensaje)
+        {
+            mensaje = string.Empty;
+            bool resultado = false;
+
+            try
+            {
+                // Llamar al método de la capa de datos para eliminar el movimiento
+                resultado = objcd_TransaccionCaja.EliminarMovimiento(idTransaccion, out mensaje);
+            }
+            catch (Exception ex)
+            {
+                mensaje = "Ocurrió un error al eliminar el movimiento: " + ex.Message;
+            }
+
+            return resultado;
+        }
     }
 }

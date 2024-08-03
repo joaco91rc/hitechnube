@@ -591,7 +591,7 @@ namespace CapaPresentacion
     bool respuesta = new CN_Venta().Registrar(oVenta, detalle_venta, out mensaje);
     if (respuesta)
     {
-                    new CN_ProductoNegocio().CargarOActualizarStockProducto(Convert.ToInt32(txtIdProducto.Text), GlobalSettings.SucursalId, -Convert.ToInt32(txtCantidad.Text));
+                    new CN_ProductoNegocio().SobrescribirStock(Convert.ToInt32(txtIdProducto.Text), GlobalSettings.SucursalId, -Convert.ToInt32(txtCantidad.Text));
                     txtIdProducto.Text = string.Empty;
                     List<string> formasPago = new List<string>();
                     formasPago.Add(cboFormaPago.Text);
