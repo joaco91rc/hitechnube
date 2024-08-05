@@ -191,7 +191,7 @@ namespace CapaPresentacion
             this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.label1.Location = new System.Drawing.Point(0, -1);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(1572, 729);
+            this.label1.Size = new System.Drawing.Size(1349, 729);
             this.label1.TabIndex = 91;
             // 
             // dtpFechaHasta

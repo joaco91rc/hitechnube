@@ -69,5 +69,17 @@ namespace CapaNegocio
 
             return oVenta;
         }
+
+        public List<Venta> ObtenerVentasConDetalle()
+        {
+            List<Venta> listaVentas = objcd_venta.ObtenerVentasConDetalle();
+
+            foreach (Venta venta in listaVentas)
+            {
+                venta.oDetalleVenta = objcd_venta.ObtenerDetalleVenta(venta.idVenta);
+            }
+
+            return listaVentas;
+        }
     }
 }

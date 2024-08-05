@@ -471,3 +471,4 @@ C:\Users\joaco\Source\Repos\hitechnube\CapaPresentacion\obj\Debug\CapaPresentaci
 C:\Users\joaco\Source\Repos\hitechnube\CapaPresentacion\obj\Debug\CapaPresentacion.csproj.CopyComplete
 C:\Users\joaco\Source\Repos\hitechnube\CapaPresentacion\obj\Debug\LP NEW STORE 49 SOFTWARE.exe
 C:\Users\joaco\Source\Repos\hitechnube\CapaPresentacion\obj\Debug\LP NEW STORE 49 SOFTWARE.pdb
+C:\Users\joaco\Source\Repos\hitechnube\CapaPresentacion\obj\Debug\CapaPresentacion.frmListadoVentas.resources

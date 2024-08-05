@@ -18,23 +18,21 @@ namespace CapaPresentacion
 {
     public partial class frmDetalleVenta : Form
     {
-        public frmDetalleVenta()
+        private Venta oVenta;
+        public frmDetalleVenta(Venta venta)
         {
             InitializeComponent();
+            oVenta = venta;
         }
 
         private void frmDetalleVenta_Load(object sender, EventArgs e)
         {
-            txtBuscarVenta.Select();
+            
             lblIdVenta.Text = "0";
-        }
-
-        private void btnBuscarVenta_Click(object sender, EventArgs e)
-        {
-            Venta oVenta = new CN_Venta().ObtenerVenta(txtBuscarVenta.Text,GlobalSettings.SucursalId);
-            if(oVenta.idVenta != 0)
+            if (oVenta != null)
             {
                 lblIdVenta.Text = oVenta.idVenta.ToString();
+                lblNumeroVenta.Text = oVenta.nroDocumento;
                 txtnroDocumento.Text = oVenta.nroDocumento;
                 dtpFecha.Text = oVenta.fechaRegistro.ToString();
                 cboTipoDocumento.Text = oVenta.tipoDocumento;
@@ -43,7 +41,7 @@ namespace CapaPresentacion
                 txtNombreCliente.Text = oVenta.nombreCliente;
                 txtDescuento.Text = oVenta.descuento.ToString();
                 txtMontoDescuento.Text = oVenta.montoDescuento.ToString();
-                txtFormaPago1.Text =oVenta.formaPago.ToString();
+                txtFormaPago1.Text = oVenta.formaPago.ToString();
                 txtFormaPago2.Text = oVenta.formaPago2.ToString();
                 txtFormaPago3.Text = oVenta.formaPago3.ToString();
                 txtFormaPago4.Text = oVenta.formaPago4.ToString();
@@ -62,6 +60,10 @@ namespace CapaPresentacion
                 txtPagaCon.Text = oVenta.montoPago.ToString("0.00");
                 txtCambio.Text = oVenta.montoCambio.ToString("0.00");
             }
+        }
+
+        private void btnBuscarVenta_Click(object sender, EventArgs e)
+        {
         }
 
         private void Limpiar()
@@ -191,21 +193,28 @@ namespace CapaPresentacion
         private void btnEliminar_Click(object sender, EventArgs e)
 
         {
-            
             string mensaje = string.Empty;
             if (GlobalSettings.RolUsuario == 1)
             {
-                bool resultado = new CN_Venta().EliminarVentaConDetalle(Convert.ToInt32(lblIdVenta.Text), out mensaje);
-                if (resultado)
+                // Mostrar un cuadro de diálogo de confirmación
+                DialogResult result = MessageBox.Show("¿Está seguro de que desea eliminar esta venta?", "Confirmación", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+                // Verificar si el usuario hizo clic en "Sí"
+                if (result == DialogResult.Yes)
                 {
-                    MessageBox.Show("Venta Eliminada", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Limpiar();
+                    bool resultado = new CN_Venta().EliminarVentaConDetalle(Convert.ToInt32(lblIdVenta.Text), out mensaje);
+                    if (resultado)
+                    {
+                        MessageBox.Show("Venta Eliminada", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        Limpiar();
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se ha podido Eliminar la Venta", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
-                else
-                {
-                    MessageBox.Show("No se ha podido Eliminar la Venta", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            } else
+            }
+            else
             {
                 MessageBox.Show("No posee permisos para Eliminar una Venta", "Mensaje", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
